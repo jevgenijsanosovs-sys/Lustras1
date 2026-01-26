@@ -176,7 +176,13 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
   const params = new URLSearchParams(window.location.search);
-  const PRODUCT_ID = params.get("id") || "1";
+  let PRODUCT_ID = params.get("id");
+
+if (!PRODUCT_ID) {
+  window.location.replace("?id=1");
+  return;
+}
+
 
   const response = await fetch("products.csv");
   const csv = await response.text();
@@ -262,3 +268,4 @@ document
 
 </body>
 </html>
+
