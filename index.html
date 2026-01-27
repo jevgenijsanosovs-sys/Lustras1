@@ -255,12 +255,12 @@ document
   document.getElementById("subtitle").textContent = product.subtitle_en;
   document.getElementById("name").textContent = product.name;
   document.getElementById("manufacturer").textContent = product.manufacturer;
+  document.getElementById("description").textContent = product.description_en;
   document.getElementById("style").textContent = product.style;
   document.getElementById("detailed_condition").textContent = product.detailed_condition;
   document.getElementById("materials").textContent = product.materials;
   document.getElementById("price").textContent = "€" + product.price;
-  document.getElementById("description").textContent = product.description_en;
-
+  
   document.getElementById("specs").innerHTML =
     `Diameter: ${product.diameter} cm<br>
      Height: ${product.height} cm<br>
@@ -300,6 +300,7 @@ document
 
 </body>
 </html>
+
 
 
 
