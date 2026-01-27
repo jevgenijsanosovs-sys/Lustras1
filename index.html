@@ -59,8 +59,11 @@
 
     .main-image {
       width: 100%;
+      height: 520px;              /* ← одна высота для всех */
+      object-fit: contain;        /* ← сохранить пропорции */
       display: block;
       margin-bottom: 15px;
+      background: #fafafa;        /* опционально */
     }
 
     .thumbnails {
@@ -71,6 +74,9 @@
 
     .thumbnails img {
       width: 80px;
+      height: 80px;
+      object-fit: contain;
+      background: #fafafa;
       cursor: pointer;
       opacity: 0.6;
       border: 1px solid transparent;
@@ -131,9 +137,12 @@
     }
 
     @media (max-width: 768px) {
-      .product {
-        grid-template-columns: 1fr;
-      }
+      /*.product {  */
+        /*grid-template-columns: 1fr;*/
+      /*}*/
+      .main-image {
+      height: 360px;
+      }  
     }
   </style>
 </head>
@@ -315,6 +324,7 @@ document
 
 </body>
 </html>
+
 
 
 
