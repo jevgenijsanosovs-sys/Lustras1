@@ -281,7 +281,8 @@ document
   document.getElementById("description").textContent = product.description_en;
   document.getElementById("style").textContent = product.style;
   document.getElementById("detailed_condition").textContent = product.detailed_condition;
-  document.getElementById("materials").textContent = product.materials;
+  /*document.getElementById("materials").textContent = product.materials;*/
+  document.getElementById("materials").innerHTML = product.materials.replace(/\\n/g, "<br>");
   document.getElementById("price").textContent = "€" + product.price;
   document.getElementById("sale_price").textContent = "€" + product.sale_price;
   
@@ -324,6 +325,7 @@ document
 
 </body>
 </html>
+
 
 
 
