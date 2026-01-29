@@ -144,6 +144,30 @@
       height: 360px;
       }  
     }
+	
+	.viewer {
+	  position: fixed;
+	  inset: 0;
+	  background: rgba(255,255,255,0.96);
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  z-index: 1000;
+	  cursor: zoom-out;
+	}
+
+	.viewer img {
+	  max-width: 92vw;
+	  max-height: 92vh;
+	  object-fit: contain;
+	}
+
+	.hidden {
+	  display: none;
+	}
+
+	
+	
   </style>
 </head>
 
@@ -222,6 +246,13 @@
   </div>
 </div>
 
+<!-- IMAGE VIEWER -->
+	<div id="imageViewer" class="viewer hidden">
+	  <img id="viewerImage" src="" alt="">
+	</div>
+
+
+
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -296,6 +327,30 @@ document
   // GALLERY
   const thumbnails = document.getElementById("thumbnails");
   const mainImage = document.getElementById("mainImage");
+  
+  // IMAGE VIEWER
+	const viewer = document.getElementById("imageViewer");
+	const viewerImage = document.getElementById("viewerImage");
+
+	mainImage.style.cursor = "zoom-in";
+
+	mainImage.addEventListener("click", () => {
+	  viewerImage.src = mainImage.src;
+	  viewer.classList.remove("hidden");
+	});
+
+	viewer.addEventListener("click", () => {
+	  viewer.classList.add("hidden");
+	  viewerImage.src = "";
+	});
+
+	document.addEventListener("keydown", e => {
+	  if (e.key === "Escape") {
+		viewer.classList.add("hidden");
+		viewerImage.src = "";
+	  }
+	});
+
 
   const imageCount = 6;
   const base = `images/product${PRODUCT_ID}-`;
