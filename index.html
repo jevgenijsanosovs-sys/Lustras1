@@ -97,7 +97,10 @@
 	.card:hover img {
 	  filter: grayscale(0%);
 	}
-
+	
+	.card:hover .image-box {
+	  border-color: rgba(0,0,0,0.6);
+	}
 	
 	.image-box {
 	  width: 100%;
@@ -122,6 +125,13 @@
 	.price {
 	  font-weight: 500;
 	}
+
+	.text-box {
+	  max-width: 240px;
+	  margin: 0 auto;
+	  text-align: left;
+	}
+
 
 
 
@@ -201,10 +211,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 	  <div class="image-box">
 		<img src="images/product${p.id}-1.png" alt="${p.title_en}">
 	  </div>
-	  <h2>${p.title_en}</h2>
-	  <div class="subtitle">${p.subtitle_en || ""}</div>
-	  <div class="price">€${p.price}</div>
+
+	  <div class="text-box">
+		<h2>${p.title_en}</h2>
+		<div class="subtitle">${p.subtitle_en || ""}</div>
+		<div class="price">€${p.price}</div>
+	  </div>
 	`;
+
 
 
     catalog.appendChild(a);
