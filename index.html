@@ -36,63 +36,52 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      overflow: hidden; /* ВАЖНО: скролл только внутри каталога */
     }
 
+    /* ===== PAGE LAYOUT ===== */
+
     .page {
-      height: 100%;
+      min-height: 100%;
       display: flex;
       flex-direction: column;
+    }
+
+    .content {
+      flex: 1;
+      padding-bottom: 90px; /* место под фиксированный footer */
     }
 
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 30px;
+      padding: 60px 30px;
     }
 
-    /* ================= HEADER ================= */
+    /* ===== HEADER ===== */
 
-    .site-header {
-      flex-shrink: 0;
-      border-bottom: 1px solid var(--line);
-      background: var(--bg);
+    header {
+      max-width: 1000px;
+      margin-bottom: 60px;
     }
 
-    .site-header .container {
-      padding-top: 40px;
-      padding-bottom: 40px;
-    }
-
-    .site-header h1 {
+    header h1 {
       font-size: 36px;
       font-weight: 500;
       margin: 0;
     }
 
-    .site-header h3 {
+    header h3 {
       font-size: 24px;
       font-weight: 500;
       margin: 0 0 30px;
     }
 
-    .site-header p {
+    header p {
       font-size: 16px;
       color: var(--muted);
-      max-width: 1000px;
     }
 
-    /* ================= SCROLL AREA ================= */
-
-    .catalog-scroll {
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .catalog-scroll .container {
-      padding-top: 60px;
-      padding-bottom: 80px;
-    }
+    /* ===== GRID ===== */
 
     .grid {
       display: grid;
@@ -100,7 +89,7 @@
       gap: 70px;
     }
 
-    /* ================= CARDS ================= */
+    /* ===== CARDS ===== */
 
     .card {
       text-decoration: none;
@@ -158,30 +147,34 @@
       font-weight: 500;
     }
 
-    .old-price {
-      font-size: 12px;
-      text-decoration: line-through;
-      opacity: 0.6;
-      margin-right: 6px;
-    }
-
     .sale-price {
       font-weight: 600;
     }
 
     @media (max-width: 768px) {
+      header {
+        margin-bottom: 40px;
+      }
+
       .image-box img {
         filter: grayscale(0%);
       }
+
+      .container {
+        padding: 40px 20px;
+      }
     }
 
-    /* ================= FOOTER ================= */
+    /* ===== FIXED FOOTER ===== */
 
     .site-footer {
-      flex-shrink: 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
       border-top: 1px solid var(--line);
       background: var(--bg);
-      padding: 30px 20px;
+      padding: 18px 20px;
       font-size: 13px;
       color: var(--muted);
     }
@@ -211,25 +204,25 @@
 
 <div class="page">
 
-  <!-- HEADER -->
-  <header class="site-header">
+  <!-- SCROLLABLE CONTENT -->
+  <div class="content">
     <div class="container">
-      <h1>Exclusive Chandeliers</h1>
-      <h3>Select Exhibits from Private Collection</h3>
-      <p>
-        An exclusive selection of handcrafted chandeliers and lighting pieces from a private exhibition collection, each embodying timeless European design, exceptional craftsmanship, and true rarity.
-      </p>
-    </div>
-  </header>
 
-  <!-- SCROLLABLE CATALOG -->
-  <main class="catalog-scroll">
-    <div class="container">
+      <header>
+        <h1>Exclusive Chandeliers</h1>
+        <h3>Select Exhibits from Private Collection</h3>
+        <p>
+          An exclusive selection of handcrafted chandeliers and lighting pieces from a private exhibition collection,
+          each embodying timeless European design, exceptional craftsmanship, and true rarity.
+        </p>
+      </header>
+
       <div class="grid" id="catalog"></div>
-    </div>
-  </main>
 
-  <!-- FOOTER -->
+    </div>
+  </div>
+
+  <!-- FIXED FOOTER -->
   <footer class="site-footer">
     <div class="footer-inner">
       <a href="terms.html">Terms of Service</a>
@@ -279,10 +272,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return obj;
     });
 
-    console.info("Catalog: CSV loaded");
-
   } catch {
-    console.warn("Catalog: DEV MODE");
     products = DEV_PRODUCTS;
   }
 
