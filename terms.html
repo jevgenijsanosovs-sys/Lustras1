@@ -15,13 +15,30 @@
 
     * { box-sizing: border-box; }
 
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
+    }
+
+    body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
                    Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+    }
+
+    /* ===== PAGE LAYOUT ===== */
+    .page {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content {
+      flex: 1;
+      padding-bottom: 90px; /* место под фиксированный footer */
+      overflow-y: auto;
     }
 
     .container {
@@ -30,16 +47,24 @@
       padding: 60px 30px;
     }
 
+    /* ===== BACK LINK ===== */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      color: var(--text);
+    }
+
+    /* ===== HEADINGS ===== */
     h1 {
       font-size: 32px;
       font-weight: 500;
       margin-bottom: 10px;
-    }
-
-    .effective-date {
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 40px;
     }
 
     h2 {
@@ -51,14 +76,24 @@
 
     p {
       font-size: 15px;
-      color: var(--text);
       margin-bottom: 16px;
     }
 
+    .effective-date {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+
+    /* ===== FIXED FOOTER ===== */
     .site-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
       border-top: 1px solid var(--line);
-      margin-top: 80px;
-      padding: 30px 20px;
+      background: var(--bg);
+      padding: 18px 20px;
       font-size: 13px;
       color: var(--muted);
     }
@@ -82,140 +117,140 @@
       margin: 0 8px;
     }
 
-   .back-link {
-     display: inline-block;
-     margin-bottom: 30px;
-     font-size: 14px;
-     color: var(--muted);
-     text-decoration: none;
-   }
-
-   .back-link:hover {
-     color: var(--text);
-   }
-
+    @media (max-width: 768px) {
+      .container {
+        padding: 40px 20px;
+      }
+    }
 
   </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="page">
 
-<a href="#" class="back-link" id="backLink">← Back</a>
+  <!-- SCROLLABLE CONTENT -->
+  <div class="content">
+    <div class="container">
 
+      <!-- BACK LINK -->
+      <a href="#" class="back-link" id="backLink">← Back</a>
 
-  <h1>Terms of Service</h1>
-  <div class="effective-date">
-    Effective Date: 15 September 2025
+      <h1>Terms of Service</h1>
+      <div class="effective-date">
+        Effective Date: 15 September 2025
+      </div>
+
+      <p>
+        Welcome to this website (the “Site”). By accessing or using the Site, you agree
+        to be bound by these Terms of Service (“Terms”). If you do not agree with these
+        Terms, please do not use the Site.
+      </p>
+
+      <h2>1. About the Website</h2>
+      <p>
+        The Site presents a curated collection of decorative lighting objects, including
+        vintage and handcrafted chandeliers and related items. All information is provided
+        for general informational and inquiry purposes only.
+      </p>
+      <p>
+        The Site does not operate as an online store with direct checkout functionality.
+        Any product availability, pricing, or specifications are subject to confirmation.
+      </p>
+
+      <h2>2. Product Information</h2>
+      <p>
+        We make reasonable efforts to ensure that product descriptions, images, dimensions,
+        and prices are accurate. However, all materials are provided for illustrative
+        purposes only. Minor variations may occur, particularly for vintage or handcrafted items.
+      </p>
+
+      <h2>3. Pricing and Availability</h2>
+      <p>
+        All prices displayed on the Site are indicative and may change without notice.
+        Submitting an inquiry does not constitute a binding purchase agreement.
+        A contract is formed only after direct confirmation between the parties.
+      </p>
+
+      <h2>4. User Inquiries</h2>
+      <p>
+        By submitting an inquiry, you agree to provide accurate and truthful information.
+        We reserve the right to decline or ignore inquiries at our discretion and do not
+        guarantee a response.
+      </p>
+
+      <h2>5. Delivery and Shipping</h2>
+      <p>
+        Information regarding delivery, shipping methods, insurance, customs duties,
+        taxes, and additional fees is provided separately in our
+        <strong>Delivery &amp; Shipping Policy</strong>, which forms an integral part of these Terms.
+      </p>
+
+      <h2>6. Intellectual Property</h2>
+      <p>
+        All content on the Site, including text, images, product descriptions, layout,
+        and design, is the property of the Site owner or its licensors and is protected
+        by applicable intellectual property laws.
+      </p>
+
+      <h2>7. Limitation of Liability</h2>
+      <p>
+        To the fullest extent permitted by law, the Site is provided “as is” and “as available”
+        without warranties of any kind. We shall not be liable for any damages arising from
+        the use of or inability to use the Site.
+      </p>
+
+      <h2>8. Third-Party Services</h2>
+      <p>
+        The Site may contain links to third-party websites or services. We are not responsible
+        for the content or practices of any third-party services.
+      </p>
+
+      <h2>9. Changes to These Terms</h2>
+      <p>
+        We reserve the right to modify these Terms at any time without prior notice.
+        Continued use of the Site constitutes acceptance of the revised Terms.
+      </p>
+
+      <h2>10. Governing Law</h2>
+      <p>
+        These Terms shall be governed by and construed in accordance with applicable law,
+        without regard to conflict of law principles.
+      </p>
+
+      <h2>11. Contact Information</h2>
+      <p>
+        For any questions regarding these Terms, please contact us via the inquiry form
+        available on the Site. These Terms constitute the entire agreement regarding
+        your use of the Site.
+      </p>
+
+    </div>
   </div>
 
-  <p>
-    Welcome to this website (the “Site”). By accessing or using the Site, you agree
-    to be bound by these Terms of Service (“Terms”). If you do not agree with these
-    Terms, please do not use the Site.
-  </p>
-
-  <h2>1. About the Website</h2>
-  <p>
-    The Site presents a curated collection of decorative lighting objects, including
-    vintage and handcrafted chandeliers and related items. All information is provided
-    for general informational and inquiry purposes only.
-  </p>
-  <p>
-    The Site does not operate as an online store with direct checkout functionality.
-    Any product availability, pricing, or specifications are subject to confirmation.
-  </p>
-
-  <h2>2. Product Information</h2>
-  <p>
-    We make reasonable efforts to ensure that product descriptions, images, dimensions,
-    and prices are accurate. However, all materials are provided for illustrative
-    purposes only. Minor variations may occur, particularly for vintage or handcrafted items.
-  </p>
-
-  <h2>3. Pricing and Availability</h2>
-  <p>
-    All prices displayed on the Site are indicative and may change without notice.
-    Submitting an inquiry does not constitute a binding purchase agreement.
-    A contract is formed only after direct confirmation between the parties.
-  </p>
-
-  <h2>4. User Inquiries</h2>
-  <p>
-    By submitting an inquiry, you agree to provide accurate and truthful information.
-    We reserve the right to decline or ignore inquiries at our discretion and do not
-    guarantee a response.
-  </p>
-
-  <h2>5. Delivery and Shipping</h2>
-  <p>
-    Information regarding delivery, shipping methods, insurance, customs duties,
-    taxes, and additional fees is provided separately in our
-    <strong>Delivery &amp; Shipping Policy</strong>, which forms an integral part of these Terms.
-  </p>
-
-  <h2>6. Intellectual Property</h2>
-  <p>
-    All content on the Site, including text, images, product descriptions, layout,
-    and design, is the property of the Site owner or its licensors and is protected
-    by applicable intellectual property laws.
-  </p>
-
-  <h2>7. Limitation of Liability</h2>
-  <p>
-    To the fullest extent permitted by law, the Site is provided “as is” and “as available”
-    without warranties of any kind. We shall not be liable for any damages arising from
-    the use of or inability to use the Site.
-  </p>
-
-  <h2>8. Third-Party Services</h2>
-  <p>
-    The Site may contain links to third-party websites or services. We are not responsible
-    for the content or practices of any third-party services.
-  </p>
-
-  <h2>9. Changes to These Terms</h2>
-  <p>
-    We reserve the right to modify these Terms at any time without prior notice.
-    Continued use of the Site constitutes acceptance of the revised Terms.
-  </p>
-
-  <h2>10. Governing Law</h2>
-  <p>
-    These Terms shall be governed by and construed in accordance with applicable law,
-    without regard to conflict of law principles.
-  </p>
-
-  <h2>11. Contact Information</h2>
-  <p>
-    For any questions regarding these Terms, please contact us via the inquiry form
-    available on the Site. These Terms constitute the entire agreement regarding
-    your use of the Site.
-  </p>
+  <!-- FIXED FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="terms.html">Terms of Service</a>
+      <span>·</span>
+      <a href="delivery.html">Delivery & Shipping</a>
+      <span>·</span>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </footer>
 
 </div>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <a href="terms.html">Terms of Service</a>
-    <span>·</span>
-    <a href="delivery.html">Delivery & Shipping</a>
-    <span>·</span>
-    <a href="privacy.html">Privacy Policy</a>
-  </div>
-</footer>
-
+<!-- BACK LINK SCRIPT -->
 <script>
   const backLink = document.getElementById("backLink");
-
   if (document.referrer && document.referrer.includes(location.hostname)) {
     backLink.href = document.referrer;
   } else {
     backLink.href = "index.html";
   }
 </script>
-
 
 </body>
 </html>
