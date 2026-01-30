@@ -95,7 +95,18 @@
     .card .price {
       font-size: 15px;
     }
-	
+
+	.card .old-price {
+	  font-size: 12px;
+	  text-decoration: line-through;
+	  opacity: 0.6;
+	  margin-right: 6px;
+	}
+
+	.card .sale-price {
+	  font-weight: 600;
+	}
+
 	.card:hover .image-box {
 	  border-color: var(--accent);
 	}
@@ -222,14 +233,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 		<img src="images/product${p.id}-1.png" alt="${p.title_en}">
 	  </div>
 
-	  <div class="text-box">
+<!-- 	  <div class="text-box">
 		<h2>${p.title_en}</h2>
 		<div class="subtitle">${p.subtitle_en || ""}</div>
 		<div class="price">€${p.price}</div>
 	  </div>
-	`;
+	`; -->
 
+	<div class="text-box">
+	  <h2>${p.title_en}</h2>
+	  <div class="subtitle">${p.subtitle_en || ""}</div>
 
+	  <div class="price">
+		<span class="old-price">€${p.price}</span>
+		<span class="sale-price">€${p.sale_price}</span>
+	  </div>
+	</div>
 
     catalog.appendChild(a);
   });
