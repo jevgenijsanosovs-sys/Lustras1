@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Crystal Collection</title>
+  <title>Crystal Chandelier Collection – Exclusive Exhibition Pieces</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta property="og:title" content="">
-  <meta property="og:description" content="">
-  <meta property="og:image" content="">
-  <meta property="og:type" content="product">
 
-
-
+  <!-- SEO -->
+  <meta name="description"
+        content="An exclusive collection of handcrafted crystal chandeliers from a private exhibition. Timeless European design and limited availability.">
+  <meta property="og:title"
+        content="Crystal Chandelier Collection – Exclusive Exhibition Pieces">
+  <meta property="og:description"
+        content="Explore a curated selection of rare handcrafted crystal chandeliers from a private exhibition collection.">
+  <meta property="og:type" content="website">
 
   <style>
     :root {
@@ -33,141 +34,112 @@
       line-height: 1.6;
     }
 
-    a {
-      color: var(--text);
-      text-decoration: none;
-    }
-
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 60px 30px;
     }
 
-    .back {
-      font-size: 14px;
+    header {
+      margin-bottom: 60px;
+      max-width: 700px;
+    }
+
+    header h1 {
+      font-size: 36px;
+      font-weight: 500;
+      margin: 0 0 15px;
+    }
+
+    header p {
+      font-size: 16px;
       color: var(--muted);
-      display: inline-block;
-      margin-bottom: 30px;
     }
 
-    .product {
+    .grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 60px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 70px;
     }
 
-    .main-image {
+    .card {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card img {
       width: 100%;
-      height: 700px;              /* ← одна высота для всех */
-      object-fit: contain;        /* ← сохранить пропорции */
       display: block;
       margin-bottom: 15px;
-      /*background: #fafafa; */       /* опционально */
     }
 
-    .thumbnails {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .thumbnails img {
-      width: 80px;
-      height: 80px;
-      object-fit: contain;
-      /*background: #fafafa;*/
-      cursor: pointer;
-      opacity: 0.6;
-      border: 1px solid transparent;
-    }
-
-    .thumbnails img.active {
-      opacity: 1;
-      border-color: var(--accent);
-    }
-
-    .info h1 {
-      font-size: 28px;
+    .card h2 {
+      font-size: 16px;
       font-weight: 500;
-      margin: 0 0 10px;
+      margin: 0 0 5px;
+	  letter-spacing: 0.02em;
     }
 
-    .subtitle {
-      font-size: 14px;
+    .card .subtitle {
+      font-size: 13px;
       color: var(--muted);
-      margin-bottom: 20px;
+      margin-bottom: 8px;
     }
 
-    .price {
-      font-size: 20px;
-      margin-bottom: 5px;
-    }
-
-    .sale_price {
-      font-size: 22px;
-      margin-bottom: 30px;
-    }
-
-    .section {
-      margin-bottom: 25px;
+    .card .price {
       font-size: 15px;
     }
-
-    .section strong {
-      display: block;
-      font-weight: 500;
-      margin-bottom: 5px;
-    }
-
-    .button {
-      margin-top: 20px;
-      padding: 14px 28px;
-      border: 1px solid var(--accent);
-      background: transparent;
-      font-size: 14px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-
-    .button:hover {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    @media (max-width: 768px) {
-      /*.product {  */
-        /*grid-template-columns: 1fr;*/
-      /*}*/
-      .main-image {
-      height: 360px;
-      }  
-    }
 	
-	.viewer {
-	  position: fixed;
-	  inset: 0;
-	  background: rgba(255,255,255,0.96);
+	.card:hover .image-box {
+	  border-color: var(--accent);
+	}
+	
+	.card:hover img {
+	  filter: grayscale(0%);
+	}
+	
+	.card:hover .image-box {
+	  border-color: rgba(0,0,0,0.6);
+	}
+	
+	.image-box {
+	  width: 100%;
+	  height: 340px;            /* единый размер */
+	  /* border: 1px solid var(--line); */
+	  border: 1px solid transparent;
 	  display: flex;
 	  align-items: center;
 	  justify-content: center;
-	  z-index: 1000;
-	  cursor: zoom-out;
+	  margin-bottom: 20px;
+	  transition: border-color 0.3s ease;
 	}
 
-	.viewer img {
-	  max-width: 92vw;
-	  max-height: 92vh;
+	.image-box img {
+	  max-width: 100%;
+	  max-height: 100%;
 	  object-fit: contain;
+	  filter: grayscale(100%);
+	  transition: filter 0.4s ease;
 	}
 
-	.hidden {
-	  display: none;
+	.price {
+	  font-weight: 500;
 	}
 
-	
-	
+	.text-box {
+	  max-width: 240px;
+	  margin: 0 auto;
+	  text-align: left;
+	}
+
+	@media (max-width: 768px) {
+	  .image-box img {
+		filter: grayscale(0%);
+	  }
+	}
+
+
+
   </style>
 </head>
 
@@ -175,233 +147,90 @@
 
 <div class="container">
 
-  <a href="catalog.html" class="back">← Back to collection</a>
+  <header>
+    <h1>Crystal Chandelier Collection</h1>
+    <p>
+      A curated selection of handcrafted crystal chandeliers from a private
+      exhibition collection. Each piece represents timeless European design,
+      exceptional craftsmanship, and limited availability.
+    </p>
+  </header>
 
-  <div class="product">
+  <div class="grid" id="catalog"></div>
 
-    <!-- GALLERY -->
-    <div class="gallery">
-      <img id="mainImage" class="main-image" src="" alt="">
-      <div class="thumbnails" id="thumbnails"></div>
-    </div>
-
-    <!-- INFORMATION -->
-    <div class="info">
-      <h1 id="title"></h1>
-      <div class="subtitle" id="subtitle"></div>
-
-      <div class="section">
-        <strong>Name</strong>
-        <span id="name"></span>
-    </div>
-
-      <div class="section">
-        <strong>Description</strong>
-        <span id="description"></span>
-      </div>
-      
-    <div class="section">
-        <strong>Manufacturer</strong>
-        <span id="manufacturer"></span>
-    </div>
-
-    <div class="section">
-        <strong>Style</strong>
-        <span id="style"></span>
-    </div>
-
-    <div class="section">
-        <strong>Materials</strong>
-        <span id="materials"></span>
-    </div>
-      
-    <div class="section">
-        <strong>Condition</strong>
-        <span id="detailed_condition"></span>
-    </div>
-
-    <div class="section">
-        <strong>Specifications</strong>
-        <span id="specs"></span>
-    </div>
-      
-    <div class="price">
-        Price
-        <span id="price"></span>
-    </div>
-
-    <div class="sale_price">
-        <strong>Sale Price</strong>
-        <span id="sale_price"></span>
-    </div>
-
-
-
-      <form action="https://formspree.io/f/XXXXYYYY" method="POST">
-        <input type="hidden" name="product" id="formProduct">
-        <button class="button" type="submit">Request purchase</button>
-      </form>
-    </div>
-
-  </div>
 </div>
-
-<!-- IMAGE VIEWER -->
-	<div id="imageViewer" class="viewer hidden">
-	  <img id="viewerImage" src="" alt="">
-	</div>
-
-
 
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
 
-  const params = new URLSearchParams(window.location.search);
-  let PRODUCT_ID = params.get("id");
-
-if (!PRODUCT_ID) {
-  window.location.replace("?id=1");
-  return;
-}
-
-
-  const response = await fetch("products.csv");
-  const csv = await response.text();
-
-  const lines = csv.split("\n").map(l => l.trim()).filter(Boolean);
-  const headers = lines.shift().split(";");
-
-  const products = lines.map(line => {
-    const values = line.split(";");
-    let obj = {};
-    headers.forEach((h, i) => obj[h] = values[i]);
-    return obj;
-  });
-
-  const product = products.find(p => p.id === PRODUCT_ID);
-  if (!product) return;
-
-// SEO META
-document.title = product.seo_title_en;
-
-document
-  .querySelector("meta[name='description']")
-  .setAttribute("content", product.seo_description_en);
-
-document
-  .querySelector("meta[property='og:title']")
-  .setAttribute("content", product.seo_title_en);
-
-document
-  .querySelector("meta[property='og:description']")
-  .setAttribute("content", product.seo_description_en);
-
-document
-  .querySelector("meta[property='og:image']")
-  .setAttribute(
-    "content",
-    window.location.origin + `/images/product${PRODUCT_ID}-1.png`
-  );
-
-
-  // TEXT CONTENT
-  document.getElementById("title").textContent = product.title_en;
-  document.getElementById("subtitle").textContent = product.subtitle_en;
-  document.getElementById("name").textContent = product.name;
-  document.getElementById("manufacturer").textContent = product.manufacturer;
-  document.getElementById("description").textContent = product.description_en;
-  document.getElementById("style").textContent = product.style;
-  document.getElementById("detailed_condition").textContent = product.detailed_condition;
-  /*document.getElementById("materials").textContent = product.materials;*/
-  document.getElementById("materials").innerHTML = product.materials.replace(/\\n/g, "<br>");
-  document.getElementById("price").textContent = "€" + product.price;
-  document.getElementById("sale_price").textContent = "€" + product.sale_price;
-  
-  document.getElementById("specs").innerHTML =
-    `Diameter: ${product.diameter} cm<br>
-     Height: ${product.height} cm<br>
-     Weight: ${product.weight} kg`;
-
-  document.getElementById("formProduct").value = product.title_en;
-
-  // GALLERY
-  const thumbnails = document.getElementById("thumbnails");
-  const mainImage = document.getElementById("mainImage");
-  
-  // IMAGE VIEWER
-	const viewer = document.getElementById("imageViewer");
-	const viewerImage = document.getElementById("viewerImage");
-
-	mainImage.style.cursor = "zoom-in";
-
-	mainImage.addEventListener("click", () => {
-	  viewerImage.src = mainImage.src;
-	  viewer.classList.remove("hidden");
-	});
-
-	viewer.addEventListener("click", () => {
-	  viewer.classList.add("hidden");
-	  viewerImage.src = "";
-	});
-
-	document.addEventListener("keydown", e => {
-	  if (e.key === "Escape") {
-		viewer.classList.add("hidden");
-		viewerImage.src = "";
-	  }
-	});
-
-
-  const imageCount = 6;
-  const base = `images/product${PRODUCT_ID}-`;
-
-  for (let i = 1; i <= imageCount; i++) {
-    const img = document.createElement("img");
-    img.src = `${base}${i}.png`;
-    img.dataset.large = img.src;
-
-    if (i === 1) {
-      img.classList.add("active");
-      mainImage.src = img.src;
+  // DEV FALLBACK
+  const DEV_PRODUCTS = [
+    {
+      id: "1",
+      title_en: "Crystal Chandelier No.1",
+      subtitle_en: "Exhibition Collection",
+      price: "4800"
+    },
+    {
+      id: "2",
+      title_en: "Crystal Chandelier No.2",
+      subtitle_en: "Exhibition Collection",
+      price: "5200"
     }
+  ];
 
-    img.addEventListener("click", () => {
-      mainImage.src = img.dataset.large;
-      document.querySelectorAll(".thumbnails img")
-        .forEach(t => t.classList.remove("active"));
-      img.classList.add("active");
+  let products = [];
+
+  try {
+    const response = await fetch("products.csv");
+    if (!response.ok) throw new Error();
+
+    const csv = await response.text();
+    const lines = csv.split("\n").map(l => l.trim()).filter(Boolean);
+    const headers = lines.shift().split(";");
+
+    products = lines.map(line => {
+      const values = line.split(";");
+      let obj = {};
+      headers.forEach((h, i) =>
+        obj[h.replace(/\uFEFF/g, "")] = values[i]
+      );
+      return obj;
     });
 
-    thumbnails.appendChild(img);
+    console.info("Catalog: CSV loaded");
+
+  } catch {
+    console.warn("Catalog: DEV MODE");
+    products = DEV_PRODUCTS;
   }
+
+  const catalog = document.getElementById("catalog");
+
+  products.forEach(p => {
+    const a = document.createElement("a");
+    a.href = `card.html?id=${p.id}`;
+    a.className = "card";
+
+	a.innerHTML = `
+	  <div class="image-box">
+		<img src="images/product${p.id}-1.png" alt="${p.title_en}">
+	  </div>
+
+	  <div class="text-box">
+		<h2>${p.title_en}</h2>
+		<div class="subtitle">${p.subtitle_en || ""}</div>
+		<div class="price">€${p.price}</div>
+	  </div>
+	`;
+
+
+
+    catalog.appendChild(a);
+  });
 
 });
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
