@@ -25,41 +25,73 @@
 
     * { box-sizing: border-box; }
 
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
+    }
+
+    body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
                    Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      overflow: hidden; /* ВАЖНО: скролл только внутри каталога */
+    }
+
+    .page {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 60px 30px;
+      padding: 0 30px;
     }
 
-    header {
-      margin-bottom: 60px;
-      max-width: 1000px;
+    /* ================= HEADER ================= */
+
+    .site-header {
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
     }
 
-    header h1 {
+    .site-header .container {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+
+    .site-header h1 {
       font-size: 36px;
       font-weight: 500;
-      margin: 0 0 0px;
+      margin: 0;
     }
 
-    header h3 {
+    .site-header h3 {
       font-size: 24px;
       font-weight: 500;
       margin: 0 0 30px;
     }
 
-    header p {
+    .site-header p {
       font-size: 16px;
       color: var(--muted);
+      max-width: 1000px;
+    }
+
+    /* ================= SCROLL AREA ================= */
+
+    .catalog-scroll {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .catalog-scroll .container {
+      padding-top: 60px;
+      padding-bottom: 80px;
     }
 
     .grid {
@@ -68,22 +100,51 @@
       gap: 70px;
     }
 
+    /* ================= CARDS ================= */
+
     .card {
       text-decoration: none;
       color: inherit;
     }
 
-    .card img {
+    .image-box {
       width: 100%;
-      display: block;
-      margin-bottom: 15px;
+      height: 340px;
+      border: 1px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+    }
+
+    .image-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: grayscale(100%);
+      transition: filter 0.4s ease;
+    }
+
+    .card:hover .image-box {
+      border-color: rgba(0,0,0,0.6);
+    }
+
+    .card:hover img {
+      filter: grayscale(0%);
+    }
+
+    .text-box {
+      max-width: 240px;
+      margin: 0 auto;
+      text-align: left;
     }
 
     .card h2 {
       font-size: 16px;
       font-weight: 500;
       margin: 0 0 5px;
-	  letter-spacing: 0.02em;
+      letter-spacing: 0.02em;
     }
 
     .card .subtitle {
@@ -92,135 +153,110 @@
       margin-bottom: 8px;
     }
 
-    .card .price {
+    .price {
       font-size: 15px;
+      font-weight: 500;
     }
 
-	.card .old-price {
-	  font-size: 12px;
-	  text-decoration: line-through;
-	  opacity: 0.6;
-	  margin-right: 6px;
-	}
+    .old-price {
+      font-size: 12px;
+      text-decoration: line-through;
+      opacity: 0.6;
+      margin-right: 6px;
+    }
 
-	.card .sale-price {
-	  font-weight: 600;
-	}
+    .sale-price {
+      font-weight: 600;
+    }
 
-	.card:hover .image-box {
-	  border-color: var(--accent);
-	}
-	
-	.card:hover img {
-	  filter: grayscale(0%);
-	}
-	
-	.card:hover .image-box {
-	  border-color: rgba(0,0,0,0.6);
-	}
-	
-	.image-box {
-	  width: 100%;
-	  height: 340px;            /* единый размер */
-	  /* border: 1px solid var(--line); */
-	  border: 1px solid transparent;
-	  display: flex;
-	  align-items: center;
-	  justify-content: center;
-	  margin-bottom: 20px;
-	  transition: border-color 0.3s ease;
-	}
+    @media (max-width: 768px) {
+      .image-box img {
+        filter: grayscale(0%);
+      }
+    }
 
-	.image-box img {
-	  max-width: 100%;
-	  max-height: 100%;
-	  object-fit: contain;
-	  filter: grayscale(100%);
-	  transition: filter 0.4s ease;
-	}
+    /* ================= FOOTER ================= */
 
-	.price {
-	  font-weight: 500;
-	}
+    .site-footer {
+      flex-shrink: 0;
+      border-top: 1px solid var(--line);
+      background: var(--bg);
+      padding: 30px 20px;
+      font-size: 13px;
+      color: var(--muted);
+    }
 
-	.text-box {
-	  max-width: 240px;
-	  margin: 0 auto;
-	  text-align: left;
-	}
+    .site-footer .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
 
-	@media (max-width: 768px) {
-	  .image-box img {
-		filter: grayscale(0%);
-	  }
-	}
+    .site-footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
 
-	.site-footer {
-	border-top: 1px solid var(--line);
-	margin-top: 80px;
-	padding: 30px 20px;
-	font-size: 13px;
-	color: var(--muted);
-	}
+    .site-footer a:hover {
+      color: var(--text);
+    }
 
-
-	.site-footer .footer-inner {
-	max-width: 1200px;
-	margin: 0 auto;
-	text-align: center;
-	}
-
-
-	.site-footer a {
-	color: var(--muted);
-	text-decoration: none;
-	}
-
-
-	.site-footer a:hover {
-	color: var(--text);
-	}
-
-
-	.site-footer span {
-	margin: 0 8px;
-	}
-
+    .site-footer span {
+      margin: 0 8px;
+    }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="page">
 
-  <header>
-    <h1>Exclusive Chandeliers</h1>
-	<h3>Select Exhibits from Private Collection</h3>
-    <p>
-      An exclusive selection of handcrafted chandeliers and lighting pieces from a private exhibition collection, each embodying timeless European design, exceptional craftsmanship, and true rarity.
-    </p>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container">
+      <h1>Exclusive Chandeliers</h1>
+      <h3>Select Exhibits from Private Collection</h3>
+      <p>
+        An exclusive selection of handcrafted chandeliers and lighting pieces from a private exhibition collection, each embodying timeless European design, exceptional craftsmanship, and true rarity.
+      </p>
+    </div>
   </header>
 
-  <div class="grid" id="catalog"></div>
+  <!-- SCROLLABLE CATALOG -->
+  <main class="catalog-scroll">
+    <div class="container">
+      <div class="grid" id="catalog"></div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="terms.html">Terms of Service</a>
+      <span>·</span>
+      <a href="delivery.html">Delivery & Shipping</a>
+      <span>·</span>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </footer>
 
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
 
-  // DEV FALLBACK
   const DEV_PRODUCTS = [
     {
       id: "1",
       title_en: "Crystal Chandelier No.1",
       subtitle_en: "Exhibition Collection",
-      price: "4800"
+      sale_price: "4800"
     },
     {
       id: "2",
       title_en: "Crystal Chandelier No.2",
       subtitle_en: "Exhibition Collection",
-      price: "5200"
+      sale_price: "5200"
     }
   ];
 
@@ -257,37 +293,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     a.href = `card.html?id=${p.id}`;
     a.className = "card";
 
-	a.innerHTML = `
-	  <div class="image-box">
-		<img src="images/product${p.id}-1.png" alt="${p.title_en}">
-	  </div>
+    a.innerHTML = `
+      <div class="image-box">
+        <img src="images/product${p.id}-1.png" alt="${p.title_en}">
+      </div>
 
-	  <div class="text-box">
-		<h2>${p.title_en}</h2>
-		<div class="subtitle">${p.subtitle_en || ""}</div>
-
-		<div class="price">
-		  <!-- <span class="old-price">€${p.price}</span> -->
-		  <span class="sale-price">${p.sale_price ? '€' + p.sale_price : ''}</span>
-		</div>
-	  </div>
-	`;
+      <div class="text-box">
+        <h2>${p.title_en}</h2>
+        <div class="subtitle">${p.subtitle_en || ""}</div>
+        <div class="price">
+          ${p.sale_price ? `<span class="sale-price">€${p.sale_price}</span>` : ""}
+        </div>
+      </div>
+    `;
 
     catalog.appendChild(a);
   });
 
 });
 </script>
-
-<footer class="site-footer">
-	<div class="footer-inner">
-		<a href="terms.html">Terms of Service</a>
-		<span>·</span>
-		<a href="delivery.html">Delivery & Shipping</a>
-		<span>·</span>
-		<a href="privacy.html">Privacy Policy</a>
-	</div>
-</footer>
 
 </body>
 </html>
