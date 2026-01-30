@@ -233,22 +233,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 		<img src="images/product${p.id}-1.png" alt="${p.title_en}">
 	  </div>
 
-<!-- 	  <div class="text-box">
+	  <div class="text-box">
 		<h2>${p.title_en}</h2>
 		<div class="subtitle">${p.subtitle_en || ""}</div>
-		<div class="price">€${p.price}</div>
-	  </div>
-	`; -->
 
-	<div class="text-box">
-	  <h2>${p.title_en}</h2>
-	  <div class="subtitle">${p.subtitle_en || ""}</div>
-
-	<div class="price">
-	  <span class="old-price">€${p.price}</span>
-	  <span class="sale-price">€${p.sale_price}</span>
+		<div class="price">
+		  <span class="old-price">€${p.price}</span>
+		  <span class="sale-price">${p.sale_price ? '€' + p.sale_price : ''}</span>
+		</div>
 	  </div>
-	</div>
 	`;
 
     catalog.appendChild(a);
