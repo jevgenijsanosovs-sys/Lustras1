@@ -99,6 +99,10 @@
       margin-bottom: 20px;
     }
 
+    .price {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
 
     .sale_price {
       font-size: 22px;
@@ -221,6 +225,10 @@
         <span id="specs"></span>
     </div>
       
+    <div class="price">
+        /* Price */
+        /* <span id="price"></span> */
+    </div>
 
     <div class="sale_price">
         <!-- <strong>Sale Price</strong> -->
@@ -306,7 +314,7 @@ document
   document.getElementById("detailed_condition").textContent = product.detailed_condition;
   /*document.getElementById("materials").textContent = product.materials;*/
   document.getElementById("materials").innerHTML = product.materials.replace(/\\n/g, "<br>");
-  document.getElementById("price").textContent = "€" + product.price;
+  /*document.getElementById("price").textContent = "€" + product.price;*/
   document.getElementById("sale_price").textContent = "€" + product.sale_price;
   
   document.getElementById("specs").innerHTML =
@@ -372,8 +380,6 @@ document
 
 </body>
 </html>
-
-
 
 
 
