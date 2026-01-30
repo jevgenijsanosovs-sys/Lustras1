@@ -109,6 +109,11 @@
       margin-bottom: 30px;
     }
 
+    .lamps {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
     .section {
       margin-bottom: 25px;
       font-size: 15px;
@@ -235,7 +240,10 @@
         <span id="sale_price"></span>
     </div>
 
-
+    <div class="lamps">
+        Lamps:
+        <span id="lamps"></span>
+    </div>
 
       <form action="https://formspree.io/f/XXXXYYYY" method="POST">
         <input type="hidden" name="product" id="formProduct">
@@ -316,6 +324,7 @@ document
   document.getElementById("materials").innerHTML = product.materials.replace(/\\n/g, "<br>");
   /*document.getElementById("price").textContent = "€" + product.price;*/
   document.getElementById("sale_price").textContent = "€" + product.sale_price;
+  document.getElementById("price").textContent = product.lamps;
   
   document.getElementById("specs").innerHTML =
     `Diameter: ${product.diameter} cm<br>
