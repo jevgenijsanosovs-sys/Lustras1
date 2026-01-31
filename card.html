@@ -22,7 +22,6 @@
     * { box-sizing: border-box; }
 
     html, body { height: 100%; margin: 0; }
-
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -51,7 +50,6 @@
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
       gap: 60px;
-      position: relative;
     }
 
     .gallery {
@@ -158,43 +156,37 @@
 
     .hidden { display: none; }
 
-    /* PREV/NEXT BUTTONS */
-    .nav-button {
-      position: absolute;
+    /* SIDE NAV BUTTONS */
+    .page-nav {
+      position: fixed;
       top: 50%;
       transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
       background: rgba(0,0,0,0.4);
       color: #fff;
       border: none;
       font-size: 28px;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
       cursor: pointer;
-      z-index: 500;
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 1000;
       transition: background 0.3s;
     }
 
-    .nav-button:hover {
+    .page-nav:hover {
       background: rgba(0,0,0,0.7);
     }
 
-    .nav-prev { left: -24px; }
-    .nav-next { right: -24px; }
+    .page-nav.prev { left: 12px; }
+    .page-nav.next { right: 12px; }
 
     @media (max-width: 768px) {
       .product { grid-template-columns: 1fr; }
       .main-image { height: 360px; }
-      .nav-prev, .nav-next {
-        left: 4px;
-        right: 4px;
-        width: 36px;
-        height: 36px;
-        font-size: 22px;
-      }
+      .page-nav { width: 36px; height: 36px; font-size: 22px; }
     }
   </style>
 </head>
@@ -210,8 +202,6 @@
     <!-- GALLERY -->
     <div class="gallery">
       <img id="mainImage" class="main-image" src="" alt="">
-      <button class="nav-button nav-prev" id="prevBtn">‹</button>
-      <button class="nav-button nav-next" id="nextBtn">›</button>
       <div class="thumbnails" id="thumbnails"></div>
     </div>
 
@@ -277,6 +267,10 @@
   <img id="viewerImage" src="" alt="">
 </div>
 
+<!-- SIDE NAV BUTTONS -->
+<button class="page-nav prev" id="prevBtn">‹</button>
+<button class="page-nav next" id="nextBtn">›</button>
+
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -293,19 +287,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   const products = lines.map(line => {
     const values = line.split(";");
     let obj = {};
-    headers.forEach((h, i) => obj[h] = values[i]);
+    headers.forEach((h,i)=>obj[h]=values[i]);
     return obj;
   });
 
-  const product = products.find(p => p.id === PRODUCT_ID);
-  if (!product) return;
+  const product = products.find(p=>p.id===PRODUCT_ID);
+  if(!product) return;
 
   // SEO META
   document.title = product.seo_title_en;
   document.querySelector("meta[name='description']").setAttribute("content", product.seo_description_en);
   document.querySelector("meta[property='og:title']").setAttribute("content", product.seo_title_en);
   document.querySelector("meta[property='og:description']").setAttribute("content", product.seo_description_en);
-  document.querySelector("meta[property='og:image']").setAttribute("content", window.location.origin + `/images/product${PRODUCT_ID}-1.png`);
+  document.querySelector("meta[property='og:image']").setAttribute("content", window.location.origin+`/images/product${PRODUCT_ID}-1.png`);
 
   // TEXT CONTENT
   document.getElementById("title").textContent = product.title_en;
@@ -315,9 +309,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("description").textContent = product.description_en;
   document.getElementById("style").textContent = product.style;
   document.getElementById("detailed_condition").textContent = product.detailed_condition;
-  document.getElementById("materials").innerHTML = product.materials.replace(/\\n/g, "<br>");
-  document.getElementById("sale_price").textContent = "€" + product.sale_price;
-  document.getElementById("specs").innerHTML =
+  document.getElementById("materials").innerHTML = product.materials.replace(/\\n/g,"<br>");
+  document.getElementById("sale_price").textContent = "€"+product.sale_price;
+  document.getElementById("specs").innerHTML=
     `Diameter: ${product.diameter} cm<br>
      Height: ${product.height} cm<br>
      Weight: ${product.weight} kg<br>
@@ -334,35 +328,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     viewerImage.src = mainImage.src;
     viewer.classList.remove("hidden");
   });
-
-  viewer.addEventListener("click", () => {
-    viewer.classList.add("hidden");
-    viewerImage.src = "";
-  });
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") {
-      viewer.classList.add("hidden");
-      viewerImage.src = "";
-    }
-  });
+  viewer.addEventListener("click", () => { viewer.classList.add("hidden"); viewerImage.src=""; });
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape"){viewer.classList.add("hidden");viewerImage.src="";}});
 
   const imageCount = 6;
   const base = `images/product${PRODUCT_ID}-`;
-
-  for (let i = 1; i <= imageCount; i++) {
+  for(let i=1;i<=imageCount;i++){
     const img = document.createElement("img");
     img.src = `${base}${i}.png`;
     img.dataset.large = img.src;
-
-    if (i === 1) { img.classList.add("active"); mainImage.src = img.src; }
-
-    img.addEventListener("click", () => {
+    if(i===1){img.classList.add("active"); mainImage.src=img.src;}
+    img.addEventListener("click", ()=>{
       mainImage.src = img.dataset.large;
-      document.querySelectorAll(".thumbnails img").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".thumbnails img").forEach(t=>t.classList.remove("active"));
       img.classList.add("active");
     });
-
     thumbnails.appendChild(img);
   }
 
@@ -370,15 +350,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
 
-  prevBtn.addEventListener("click", () => {
-    let currentIndex = products.findIndex(p => p.id === PRODUCT_ID);
-    let prevIndex = (currentIndex - 1 + products.length) % products.length;
+  prevBtn.addEventListener("click", ()=>{
+    let currentIndex = products.findIndex(p=>p.id===PRODUCT_ID);
+    let prevIndex = (currentIndex-1+products.length)%products.length;
     window.location.href = `card.html?id=${products[prevIndex].id}`;
   });
 
-  nextBtn.addEventListener("click", () => {
-    let currentIndex = products.findIndex(p => p.id === PRODUCT_ID);
-    let nextIndex = (currentIndex + 1) % products.length;
+  nextBtn.addEventListener("click", ()=>{
+    let currentIndex = products.findIndex(p=>p.id===PRODUCT_ID);
+    let nextIndex = (currentIndex+1)%products.length;
     window.location.href = `card.html?id=${products[nextIndex].id}`;
   });
 
