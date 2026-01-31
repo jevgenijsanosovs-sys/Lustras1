@@ -10,9 +10,6 @@
   <meta property="og:image" content="">
   <meta property="og:type" content="product">
 
-
-
-
   <style>
     :root {
       --bg: #ffffff;
@@ -24,6 +21,8 @@
 
     * { box-sizing: border-box; }
 
+    html, body { height: 100%; margin: 0; }
+
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -33,10 +32,7 @@
       line-height: 1.6;
     }
 
-    a {
-      color: var(--text);
-      text-decoration: none;
-    }
+    a { color: var(--text); text-decoration: none; }
 
     .container {
       max-width: 1200px;
@@ -55,15 +51,20 @@
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
       gap: 60px;
+      position: relative;
+    }
+
+    .gallery {
+      position: relative;
     }
 
     .main-image {
       width: 100%;
-      height: 700px;              /* ← одна высота для всех */
-      object-fit: contain;        /* ← сохранить пропорции */
+      height: 700px;
+      object-fit: contain;
       display: block;
       margin-bottom: 15px;
-      /*background: #fafafa; */       /* опционально */
+      cursor: zoom-in;
     }
 
     .thumbnails {
@@ -76,10 +77,10 @@
       width: 80px;
       height: 80px;
       object-fit: contain;
-      /*background: #fafafa;*/
       cursor: pointer;
       opacity: 0.6;
       border: 1px solid transparent;
+      transition: border-color 0.3s, opacity 0.3s;
     }
 
     .thumbnails img.active {
@@ -109,7 +110,6 @@
       margin-bottom: 30px;
     }
 
-
     .section {
       margin-bottom: 25px;
       font-size: 15px;
@@ -130,6 +130,7 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
       cursor: pointer;
+      transition: background 0.3s, color 0.3s;
     }
 
     .button:hover {
@@ -137,38 +138,64 @@
       color: #fff;
     }
 
-    @media (max-width: 768px) {
-      /*.product {  */
-        /*grid-template-columns: 1fr;*/
-      /*}*/
-      .main-image {
-      height: 360px;
-      }  
+    /* IMAGE VIEWER */
+    .viewer {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      cursor: zoom-out;
     }
-	
-	.viewer {
-	  position: fixed;
-	  inset: 0;
-	  background: rgba(255,255,255,0.96);
-	  display: flex;
-	  align-items: center;
-	  justify-content: center;
-	  z-index: 1000;
-	  cursor: zoom-out;
-	}
 
-	.viewer img {
-	  max-width: 92vw;
-	  max-height: 92vh;
-	  object-fit: contain;
-	}
+    .viewer img {
+      max-width: 92vw;
+      max-height: 92vh;
+      object-fit: contain;
+    }
 
-	.hidden {
-	  display: none;
-	}
+    .hidden { display: none; }
 
-	
-	
+    /* PREV/NEXT BUTTONS */
+    .nav-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.4);
+      color: #fff;
+      border: none;
+      font-size: 28px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+
+    .nav-button:hover {
+      background: rgba(0,0,0,0.7);
+    }
+
+    .nav-prev { left: -24px; }
+    .nav-next { right: -24px; }
+
+    @media (max-width: 768px) {
+      .product { grid-template-columns: 1fr; }
+      .main-image { height: 360px; }
+      .nav-prev, .nav-next {
+        left: 4px;
+        right: 4px;
+        width: 36px;
+        height: 36px;
+        font-size: 22px;
+      }
+    }
   </style>
 </head>
 
@@ -176,13 +203,15 @@
 
 <div class="container">
 
-  <a href="catalog.html" class="back">← Back to collection</a>
+  <a href="index.html" class="back">← Back to collection</a>
 
   <div class="product">
 
     <!-- GALLERY -->
     <div class="gallery">
       <img id="mainImage" class="main-image" src="" alt="">
+      <button class="nav-button nav-prev" id="prevBtn">‹</button>
+      <button class="nav-button nav-next" id="nextBtn">›</button>
       <div class="thumbnails" id="thumbnails"></div>
     </div>
 
@@ -194,48 +223,45 @@
       <div class="section">
         <strong>Name</strong>
         <span id="name"></span>
-    </div>
+      </div>
 
       <div class="section">
         <strong>Description</strong>
         <span id="description"></span>
       </div>
-      
-    <div class="section">
+
+      <div class="section">
         <strong>Manufacturer</strong>
         <span id="manufacturer"></span>
-    </div>
+      </div>
 
-    <div class="section">
+      <div class="section">
         <strong>Style</strong>
         <span id="style"></span>
-    </div>
+      </div>
 
-    <div class="section">
+      <div class="section">
         <strong>Materials</strong>
         <span id="materials"></span>
-    </div>
-      
-    <div class="section">
+      </div>
+
+      <div class="section">
         <strong>Condition</strong>
         <span id="detailed_condition"></span>
-    </div>
+      </div>
 
-    <div class="section">
+      <div class="section">
         <strong>Specifications</strong>
         <span id="specs"></span>
-    </div>
-      
-    <div class="price">
-        <!-- Price -->
+      </div>
+
+      <div class="price">
         <span id="price"></span>
-    </div>
+      </div>
 
-    <div class="sale_price">
-        <!-- <strong>Sale Price</strong> -->
+      <div class="sale_price">
         <span id="sale_price"></span>
-    </div>
-
+      </div>
 
       <form action="https://formspree.io/f/XXXXYYYY" method="POST">
         <input type="hidden" name="product" id="formProduct">
@@ -247,23 +273,16 @@
 </div>
 
 <!-- IMAGE VIEWER -->
-	<div id="imageViewer" class="viewer hidden">
-	  <img id="viewerImage" src="" alt="">
-	</div>
-
-
+<div id="imageViewer" class="viewer hidden">
+  <img id="viewerImage" src="" alt="">
+</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
 
   const params = new URLSearchParams(window.location.search);
   let PRODUCT_ID = params.get("id");
-
-if (!PRODUCT_ID) {
-  window.location.replace("?id=1");
-  return;
-}
-
+  if (!PRODUCT_ID) { window.location.replace("?id=1"); return; }
 
   const response = await fetch("products.csv");
   const csv = await response.text();
@@ -281,28 +300,12 @@ if (!PRODUCT_ID) {
   const product = products.find(p => p.id === PRODUCT_ID);
   if (!product) return;
 
-// SEO META
-document.title = product.seo_title_en;
-
-document
-  .querySelector("meta[name='description']")
-  .setAttribute("content", product.seo_description_en);
-
-document
-  .querySelector("meta[property='og:title']")
-  .setAttribute("content", product.seo_title_en);
-
-document
-  .querySelector("meta[property='og:description']")
-  .setAttribute("content", product.seo_description_en);
-
-document
-  .querySelector("meta[property='og:image']")
-  .setAttribute(
-    "content",
-    window.location.origin + `/images/product${PRODUCT_ID}-1.png`
-  );
-
+  // SEO META
+  document.title = product.seo_title_en;
+  document.querySelector("meta[name='description']").setAttribute("content", product.seo_description_en);
+  document.querySelector("meta[property='og:title']").setAttribute("content", product.seo_title_en);
+  document.querySelector("meta[property='og:description']").setAttribute("content", product.seo_description_en);
+  document.querySelector("meta[property='og:image']").setAttribute("content", window.location.origin + `/images/product${PRODUCT_ID}-1.png`);
 
   // TEXT CONTENT
   document.getElementById("title").textContent = product.title_en;
@@ -312,47 +315,37 @@ document
   document.getElementById("description").textContent = product.description_en;
   document.getElementById("style").textContent = product.style;
   document.getElementById("detailed_condition").textContent = product.detailed_condition;
-  /*document.getElementById("materials").textContent = product.materials;*/
   document.getElementById("materials").innerHTML = product.materials.replace(/\\n/g, "<br>");
-  /*document.getElementById("price").textContent = "€" + product.price;*/
   document.getElementById("sale_price").textContent = "€" + product.sale_price;
-  /*document.getElementById("lamps").textContent = product.lamps;*/
-  
   document.getElementById("specs").innerHTML =
     `Diameter: ${product.diameter} cm<br>
      Height: ${product.height} cm<br>
      Weight: ${product.weight} kg<br>
      Lamps: ${product.lamps}`;
-
   document.getElementById("formProduct").value = product.title_en;
 
   // GALLERY
   const thumbnails = document.getElementById("thumbnails");
   const mainImage = document.getElementById("mainImage");
-  
-  // IMAGE VIEWER
-	const viewer = document.getElementById("imageViewer");
-	const viewerImage = document.getElementById("viewerImage");
+  const viewer = document.getElementById("imageViewer");
+  const viewerImage = document.getElementById("viewerImage");
 
-	mainImage.style.cursor = "zoom-in";
+  mainImage.addEventListener("click", () => {
+    viewerImage.src = mainImage.src;
+    viewer.classList.remove("hidden");
+  });
 
-	mainImage.addEventListener("click", () => {
-	  viewerImage.src = mainImage.src;
-	  viewer.classList.remove("hidden");
-	});
+  viewer.addEventListener("click", () => {
+    viewer.classList.add("hidden");
+    viewerImage.src = "";
+  });
 
-	viewer.addEventListener("click", () => {
-	  viewer.classList.add("hidden");
-	  viewerImage.src = "";
-	});
-
-	document.addEventListener("keydown", e => {
-	  if (e.key === "Escape") {
-		viewer.classList.add("hidden");
-		viewerImage.src = "";
-	  }
-	});
-
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+      viewer.classList.add("hidden");
+      viewerImage.src = "";
+    }
+  });
 
   const imageCount = 6;
   const base = `images/product${PRODUCT_ID}-`;
@@ -362,48 +355,35 @@ document
     img.src = `${base}${i}.png`;
     img.dataset.large = img.src;
 
-    if (i === 1) {
-      img.classList.add("active");
-      mainImage.src = img.src;
-    }
+    if (i === 1) { img.classList.add("active"); mainImage.src = img.src; }
 
     img.addEventListener("click", () => {
       mainImage.src = img.dataset.large;
-      document.querySelectorAll(".thumbnails img")
-        .forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".thumbnails img").forEach(t => t.classList.remove("active"));
       img.classList.add("active");
     });
 
     thumbnails.appendChild(img);
   }
 
+  // PREV/NEXT NAV
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  prevBtn.addEventListener("click", () => {
+    let currentIndex = products.findIndex(p => p.id === PRODUCT_ID);
+    let prevIndex = (currentIndex - 1 + products.length) % products.length;
+    window.location.href = `card.html?id=${products[prevIndex].id}`;
+  });
+
+  nextBtn.addEventListener("click", () => {
+    let currentIndex = products.findIndex(p => p.id === PRODUCT_ID);
+    let nextIndex = (currentIndex + 1) % products.length;
+    window.location.href = `card.html?id=${products[nextIndex].id}`;
+  });
+
 });
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
