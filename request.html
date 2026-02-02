@@ -149,25 +149,7 @@
     Copy email text
   </button>
 
-To: donbriz.lightining@gmail.com
-Subject: Purchase Request
 
-Hello,
-
-I would like to place an order for the following light fixture:
-
-Name: 
-Description: 
-Materials: 
-Specifications: 
-
-Delivery Address:
-[Your full delivery address here]
-
-Additional Notes:
-[Any special requests or questions]
-
-Thank you!
   </div>
 
   <p>Once we receive your email, we will provide a confirmation, total cost including shipping, and estimated delivery time.</p>
@@ -234,12 +216,15 @@ Additional Notes:
 Thank you!`;
 });
 
-document.getElementById("copyBtn").addEventListener("click", () => {
+document.getElementById("copyBtn").addEventListener("click", async () => {
   const text = document.getElementById("emailBlock").value;
-  navigator.clipboard.writeText(text).then(() => {
-    alert("Email text copied to clipboard");
-  });
+  await navigator.clipboard.writeText(text);
+  document.getElementById("copyBtn").textContent = "Copied ✓";
+  setTimeout(() => {
+    document.getElementById("copyBtn").textContent = "Copy email text";
+  }, 2000);
 });
+
 
 
 </script>
