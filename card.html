@@ -32,6 +32,7 @@
     }
 
     a { color: var(--text); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
     .container {
       max-width: 1200px;
@@ -52,10 +53,7 @@
       gap: 60px;
     }
 
-    .gallery {
-      position: relative;
-    }
-
+    .gallery { position: relative; }
     .main-image {
       width: 100%;
       height: 700px;
@@ -86,38 +84,12 @@
       border-color: var(--accent);
     }
 
-    .info h1 {
-      font-size: 28px;
-      font-weight: 500;
-      margin: 0 0 10px;
-    }
-
-    .subtitle {
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    .price {
-      font-size: 20px;
-      margin-bottom: 5px;
-    }
-
-    .sale_price {
-      font-size: 22px;
-      margin-bottom: 30px;
-    }
-
-    .section {
-      margin-bottom: 25px;
-      font-size: 15px;
-    }
-
-    .section strong {
-      display: block;
-      font-weight: 500;
-      margin-bottom: 5px;
-    }
+    .info h1 { font-size: 28px; font-weight: 500; margin: 0 0 10px; }
+    .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+    .price { font-size: 20px; margin-bottom: 5px; }
+    .sale_price { font-size: 22px; margin-bottom: 30px; }
+    .section { margin-bottom: 25px; font-size: 15px; }
+    .section strong { display: block; font-weight: 500; margin-bottom: 5px; }
 
     .button {
       margin-top: 20px;
@@ -129,6 +101,8 @@
       text-transform: uppercase;
       cursor: pointer;
       transition: background 0.3s, color 0.3s;
+      display: inline-block;
+      text-align: center;
     }
 
     .button:hover {
@@ -176,10 +150,7 @@
       transition: background 0.3s;
     }
 
-    .page-nav:hover {
-      background: rgba(0,0,0,0.7);
-    }
-
+    .page-nav:hover { background: rgba(0,0,0,0.7); }
     .page-nav.prev { left: 12px; }
     .page-nav.next { right: 12px; }
 
@@ -192,7 +163,6 @@
 </head>
 
 <body>
-
 <div class="container">
 
   <a href="index.html" class="back">← Back to collection</a>
@@ -253,52 +223,10 @@
         <span id="sale_price"></span>
       </div>
 
-<form action="https://formspree.io/f/XXXXYYYY" method="POST">
+      <!-- BUTTON LINKING TO REQUEST PAGE -->
+      <a href="request.html" class="button">Request Purchase</a>
 
-  <!-- HIDDEN CONTEXT -->
-  <input type="hidden" name="product" id="formProduct">
-  <input type="hidden" name="product_id" value="">
-  <input type="hidden" name="page_url" value="">
-
-  <!-- USER INPUT -->
-  <div class="section">
-    <strong>Your Name</strong>
-    <input type="text" name="name" required style="width:100%; padding:8px;">
-  </div>
-
-  <div class="section">
-    <strong>Email</strong>
-    <input type="email" name="_replyto" required style="width:100%; padding:8px;">
-  </div>
-  
-  <!-- HIDDEN CONTEXT -->
-<input type="hidden" name="product" id="formProduct">
-<input type="hidden" name="product_id" value="">
-<input type="hidden" name="page_url" value="">
-<input type="hidden" name="_subject" value="">
-
-
-  <div class="section">
-    <strong>Message</strong>
-    <textarea name="message" rows="4" style="width:100%; padding:8px;"
-      placeholder="Please let us know your location, delivery destination, or any questions."></textarea>
-  </div>
-
-  <div class="section" style="font-size:13px; color:#666;">
-    <label>
-      <input type="checkbox" name="privacy_consent" required>
-      I agree to the <a href="privacy.html" target="_blank">Privacy Policy</a>
-    </label>
-  </div>
-
-  <button class="button" type="submit">Request purchase</button>
-  <input type="text" name="_gotcha" style="display:none">
-</form>
-
-	  
-	  
     </div>
-
   </div>
 </div>
 
@@ -356,13 +284,6 @@ document.addEventListener("DOMContentLoaded", async () => {
      Height: ${product.height} cm<br>
      Weight: ${product.weight} kg<br>
      Lamps: ${product.lamps}`;
-  document.getElementById("formProduct").value = product.title_en;
-  document.querySelector("input[name='product_id']").value = product.id;
-  document.querySelector("input[name='page_url']").value = window.location.href;
-  document.querySelector("input[name='_subject']").value =
-  `Purchase inquiry: ${product.title_en}`;
-
-  
 
   // GALLERY
   const thumbnails = document.getElementById("thumbnails");
