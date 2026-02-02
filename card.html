@@ -253,10 +253,50 @@
         <span id="sale_price"></span>
       </div>
 
-      <form action="https://formspree.io/f/XXXXYYYY" method="POST">
-        <input type="hidden" name="product" id="formProduct">
-        <button class="button" type="submit">Request purchase</button>
-      </form>
+<form action="https://formspree.io/f/XXXXYYYY" method="POST">
+
+  <!-- HIDDEN CONTEXT -->
+  <input type="hidden" name="product" id="formProduct">
+  <input type="hidden" name="product_id" value="">
+  <input type="hidden" name="page_url" value="">
+
+  <!-- USER INPUT -->
+  <div class="section">
+    <strong>Your Name</strong>
+    <input type="text" name="name" required style="width:100%; padding:8px;">
+  </div>
+
+  <div class="section">
+    <strong>Email</strong>
+    <input type="email" name="_replyto" required style="width:100%; padding:8px;">
+  </div>
+  
+  <!-- HIDDEN CONTEXT -->
+<input type="hidden" name="product" id="formProduct">
+<input type="hidden" name="product_id" value="">
+<input type="hidden" name="page_url" value="">
+<input type="hidden" name="_subject" value="">
+
+
+  <div class="section">
+    <strong>Message</strong>
+    <textarea name="message" rows="4" style="width:100%; padding:8px;"
+      placeholder="Please let us know your location, delivery destination, or any questions."></textarea>
+  </div>
+
+  <div class="section" style="font-size:13px; color:#666;">
+    <label>
+      <input type="checkbox" name="privacy_consent" required>
+      I agree to the <a href="privacy.html" target="_blank">Privacy Policy</a>
+    </label>
+  </div>
+
+  <button class="button" type="submit">Request purchase</button>
+  <input type="text" name="_gotcha" style="display:none">
+</form>
+
+	  
+	  
     </div>
 
   </div>
@@ -317,6 +357,12 @@ document.addEventListener("DOMContentLoaded", async () => {
      Weight: ${product.weight} kg<br>
      Lamps: ${product.lamps}`;
   document.getElementById("formProduct").value = product.title_en;
+  document.querySelector("input[name='product_id']").value = product.id;
+  document.querySelector("input[name='page_url']").value = window.location.href;
+  document.querySelector("input[name='_subject']").value =
+  `Purchase inquiry: ${product.title_en}`;
+
+  
 
   // GALLERY
   const thumbnails = document.getElementById("thumbnails");
