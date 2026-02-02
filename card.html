@@ -20,7 +20,6 @@
     }
 
     * { box-sizing: border-box; }
-
     html, body { height: 100%; margin: 0; }
     body {
       margin: 0;
@@ -30,7 +29,6 @@
       color: var(--text);
       line-height: 1.6;
     }
-
     a { color: var(--text); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
@@ -103,6 +101,8 @@
       transition: background 0.3s, color 0.3s;
       display: inline-block;
       text-align: center;
+      text-decoration: none;
+      color: var(--text);
     }
 
     .button:hover {
@@ -180,53 +180,21 @@
       <h1 id="title"></h1>
       <div class="subtitle" id="subtitle"></div>
 
-      <div class="section">
-        <strong>Name</strong>
-        <span id="name"></span>
-      </div>
+      <div class="section"><strong>Name</strong><span id="name"></span></div>
+      <div class="section"><strong>Description</strong><span id="description"></span></div>
+      <div class="section"><strong>Manufacturer</strong><span id="manufacturer"></span></div>
+      <div class="section"><strong>Style</strong><span id="style"></span></div>
+      <div class="section"><strong>Materials</strong><span id="materials"></span></div>
+      <div class="section"><strong>Condition</strong><span id="detailed_condition"></span></div>
+      <div class="section"><strong>Specifications</strong><span id="specs"></span></div>
 
-      <div class="section">
-        <strong>Description</strong>
-        <span id="description"></span>
-      </div>
+      <div class="price"><span id="price"></span></div>
+      <div class="sale_price"><span id="sale_price"></span></div>
 
-      <div class="section">
-        <strong>Manufacturer</strong>
-        <span id="manufacturer"></span>
-      </div>
-
-      <div class="section">
-        <strong>Style</strong>
-        <span id="style"></span>
-      </div>
-
-      <div class="section">
-        <strong>Materials</strong>
-        <span id="materials"></span>
-      </div>
-
-      <div class="section">
-        <strong>Condition</strong>
-        <span id="detailed_condition"></span>
-      </div>
-
-      <div class="section">
-        <strong>Specifications</strong>
-        <span id="specs"></span>
-      </div>
-
-      <div class="price">
-        <span id="price"></span>
-      </div>
-
-      <div class="sale_price">
-        <span id="sale_price"></span>
-      </div>
-
-      <!-- BUTTON LINKING TO REQUEST PAGE -->
-      <a href="request.html" class="button">Request Purchase</a>
-
+      <!-- BUTTON TO REQUEST PAGE -->
+      <a id="requestBtn" href="#" class="button">Request Purchase</a>
     </div>
+
   </div>
 </div>
 
@@ -244,7 +212,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const params = new URLSearchParams(window.location.search);
   let PRODUCT_ID = params.get("id");
-  if (!PRODUCT_ID) { window.location.replace("?id=1"); return; }
+  if (!PRODUCT_ID) { window.location.replace("index.html"); return; }
 
   const response = await fetch("products.csv");
   const csv = await response.text();
@@ -284,6 +252,9 @@ document.addEventListener("DOMContentLoaded", async () => {
      Height: ${product.height} cm<br>
      Weight: ${product.weight} kg<br>
      Lamps: ${product.lamps}`;
+
+  // Set Request button href with ID
+  document.getElementById("requestBtn").href = `request.html?id=${PRODUCT_ID}`;
 
   // GALLERY
   const thumbnails = document.getElementById("thumbnails");
