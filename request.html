@@ -83,16 +83,18 @@
       margin-bottom: 3px;
     }
 
-    .email-block {
-      width: 100%;
-      border: 1px solid var(--line);
-      background: #f9f9f9;
-      padding: 15px;
-      font-family: monospace;
-      white-space: pre-wrap;
-      margin-bottom: 20px;
-      cursor: text;
-    }
+	.email-block {
+	  width: 100%;
+	  border: 1px solid var(--line);
+	  background: #f9f9f9;
+	  padding: 15px;
+	  font-family: monospace;
+	  white-space: pre;
+	  margin-bottom: 20px;
+	  resize: vertical;
+	  min-height: 260px;
+	}
+
 
     .contacts {
       margin-top: 40px;
@@ -141,7 +143,7 @@
   <p>You can copy the text below and paste it into your email:</p>
 
   <!-- COPY-ABLE EMAIL BLOCK -->
-  <div class="email-block" id="emailBlock" contenteditable="true">
+  <textarea class="email-block" id="emailBlock" readonly></textarea>
 To: donbriz.lightining@gmail.com
 Subject: Purchase Request
 
@@ -230,5 +232,4 @@ Thank you!`;
 
 </body>
 </html>
-
 
