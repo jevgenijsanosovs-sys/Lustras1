@@ -13,14 +13,14 @@
       --muted: #666666;
       --line: #e5e5e5;
       --accent: #000000;
+      --highlight: #0066cc; /* синий цвет для ссылок */
     }
 
     * { box-sizing: border-box; }
 
     html, body { height: 100%; margin: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -67,6 +67,40 @@
     .highlight {
       font-weight: 500;
     }
+
+    .seller-email {
+      color: var(--highlight);
+      text-decoration: underline;
+      font-style: italic;
+    }
+
+    .product-summary {
+      border: 1px solid var(--line);
+      padding: 20px;
+      margin: 20px 0;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .product-summary img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border: 1px solid var(--line);
+    }
+
+    .product-details span {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .product-details strong {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
   </style>
 </head>
 
@@ -77,20 +111,67 @@
 
   <h1>Request Purchase</h1>
 
-  <p><span class="highlight">According to our Delivery & Shipping policy</span>, we organize the shipment of all lighting products directly to your specified address. All deliveries are arranged by the seller once the purchase request is received.</p>
+  <p>Thank you for your interest in our collection!</p>
 
-  <p>To place a purchase request, please send an email to <a href="mailto:donbriz.lightining@gmail.com">donbriz.lightining@gmail.com</a> with the following information:</p>
+  <p>Before sending your request, please review the summary of the selected light fixture below. You can copy the necessary information to include in your email.</p>
+
+  <!-- PRODUCT SUMMARY -->
+  <div class="product-summary">
+    <img id="productImage" src="" alt="Product Image">
+    <div class="product-details">
+      <span><strong>Name:</strong> <span id="prodName"></span></span>
+      <span><strong>Description:</strong> <span id="prodDescription"></span></span>
+      <span><strong>Materials:</strong> <span id="prodMaterials"></span></span>
+      <span><strong>Specifications:</strong> <span id="prodSpecs"></span></span>
+    </div>
+  </div>
+
+  <p>To place a purchase request, please send an email <span class="seller-email">to the Seller's email address</span> with the following information:</p>
 
   <ul>
-    <li>The <span class="highlight">name of the light fixture</span> you are interested in.</li>
+    <li>The <span class="highlight">name of the light fixture</span>.</li>
     <li>Your <span class="highlight">delivery address</span> including city, postal code, and country.</li>
     <li>Any <span class="highlight">additional questions or specifications</span> related to the order.</li>
   </ul>
 
   <p>Once we receive your email, we will provide a confirmation, total cost including shipping, and estimated delivery time.</p>
 
-  <p>Thank you for choosing our products. We look forward to serving you!</p>
+  <p>Thank you again for choosing our products. We look forward to serving you!</p>
 
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  // Получаем ID продукта из URL
+  const params = new URLSearchParams(window.location.search);
+  let PRODUCT_ID = params.get("id");
+  if (!PRODUCT_ID) { window.location.replace("index.html"); return; }
+
+  // Загружаем CSV с продуктами
+  const response = await fetch("products.csv");
+  const csv = await response.text();
+  const lines = csv.split("\n").map(l => l.trim()).filter(Boolean);
+  const headers = lines.shift().split(";");
+
+  const products = lines.map(line => {
+    const values = line.split(";");
+    let obj = {};
+    headers.forEach((h,i)=>obj[h]=values[i]);
+    return obj;
+  });
+
+  const product = products.find(p=>p.id===PRODUCT_ID);
+  if(!product) return;
+
+  // Подставляем данные в блок продукта
+  document.getElementById("prodName").textContent = product.title_en;
+  document.getElementById("prodDescription").textContent = product.description_en;
+  document.getElementById("prodMaterials").textContent = product.materials.replace(/\\n/g,", ");
+  document.getElementById("prodSpecs").innerHTML =
+    `Diameter: ${product.diameter} cm, Height: ${product.height} cm, Weight: ${product.weight} kg, Lamps: ${product.lamps}`;
+  document.getElementById("productImage").src = `images/product${PRODUCT_ID}-1.png`;
+});
+</script>
+
 </body>
 </html>
