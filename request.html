@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Request Purchase</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Instructions for submitting a purchase request.">
 
   <style>
     :root {
@@ -17,14 +16,13 @@
     }
 
     * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; }
+    html, body { margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      margin: 0;
-      padding: 0;
     }
 
     a { color: var(--text); text-decoration: none; }
@@ -46,22 +44,21 @@
     h1 { font-size: 28px; margin-bottom: 20px; }
     p { margin-bottom: 16px; font-size: 16px; }
     ul { margin-left: 20px; margin-bottom: 20px; }
-    li { margin-bottom: 8px; font-size: 16px; }
+    li { margin-bottom: 8px; }
 
     .highlight { font-weight: 500; }
     .seller-email {
       color: var(--highlight);
-      text-decoration: underline;
       font-style: italic;
     }
 
+    /* PRODUCT SUMMARY */
     .product-summary {
       border: 1px solid var(--line);
       padding: 20px;
       margin: 20px 0;
       display: flex;
       gap: 20px;
-      align-items: flex-start;
     }
 
     .product-summary img {
@@ -83,18 +80,37 @@
       margin-bottom: 3px;
     }
 
-	.email-block {
-	  width: 100%;
-	  border: 1px solid var(--line);
-	  background: #f9f9f9;
-	  padding: 15px;
-	  font-family: monospace;
-	  white-space: pre;
-	  margin-bottom: 20px;
-	  resize: vertical;
-	  min-height: 260px;
-	}
+    /* EMAIL TEMPLATE */
+    .email-block {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #f9f9f9;
+      padding: 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      white-space: pre-wrap;
+      min-height: 260px;
+      margin-bottom: 15px;
+    }
 
+    .email-block:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .button {
+      padding: 12px 24px;
+      border: 1px solid var(--accent);
+      background: transparent;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background: var(--accent);
+      color: #fff;
+    }
 
     .contacts {
       margin-top: 40px;
@@ -102,7 +118,6 @@
       padding-top: 20px;
       font-size: 15px;
     }
-
   </style>
 </head>
 
@@ -113,58 +128,57 @@
 
   <h1>Request Purchase</h1>
 
-  <p>Thank you for your interest in our collection!</p>
+  <p>Thank you for your interest in our collection.</p>
 
-  <p>Before sending your request, please review the summary of the selected light fixture below. You can copy the necessary information to include in your email.</p>
+  <p>Please review the selected light fixture below. You can copy the prepared email text and paste it into your email application.</p>
 
   <!-- PRODUCT SUMMARY -->
   <div class="product-summary">
-    <img id="productImage" src="" alt="Product Image">
+    <img id="productImage" src="" alt="">
     <div class="product-details">
-      <span><strong>Name:</strong> <span id="prodName"></span></span>
-      <span><strong>Description:</strong> <span id="prodDescription"></span></span>
-      <span><strong>Materials:</strong> <span id="prodMaterials"></span></span>
-      <span><strong>Specifications:</strong> <span id="prodSpecs"></span></span>
+      <span><strong>Name</strong><span id="prodName"></span></span>
+      <span><strong>Description</strong><span id="prodDescription"></span></span>
+      <span><strong>Materials</strong><span id="prodMaterials"></span></span>
+      <span><strong>Specifications</strong><span id="prodSpecs"></span></span>
     </div>
   </div>
 
-  <!-- DELIVERY INFO -->
-  <p>Delivery is organized according to our <a href="delivery.html" target="_blank"><strong>Delivery & Shipping</strong></a> policy. Please refer to this page for detailed information on shipping options, costs, and estimated delivery times.</p>
+  <p>
+    Delivery is arranged according to our
+    <a href="delivery.html" target="_blank"><strong>Delivery & Shipping</strong></a> policy.
+  </p>
 
-  <!-- EMAIL INSTRUCTIONS -->
-  <p>To place a purchase request, please send an email <a href="mailto:donbriz.lighting@gmail.com" class="seller-email">to the Seller's email address</a> with the following information:</p>
+  <p>
+    Please send your purchase request by email to
+    <a href="mailto:donbriz.lighting@gmail.com" class="seller-email">donbriz.lighting@gmail.com</a>
+    including the information below.
+  </p>
 
-  <ul>
-    <li>The <span class="highlight">name of the light fixture</span>.</li>
-    <li>Your <span class="highlight">delivery address</span> including city, postal code, and country.</li>
-    <li>Any <span class="highlight">additional questions or specifications</span> related to the order.</li>
-  </ul>
+  <!-- EMAIL TEMPLATE -->
+  <pre id="emailBlock" class="email-block" contenteditable="true"></pre>
 
-  <p>You can copy the text below and paste it into your email:</p>
-
-  <!-- COPY-ABLE EMAIL BLOCK -->
-  <textarea class="email-block" id="emailBlock" readonly></textarea>
-  <!-- COPY BUTTON -->
   <button class="button" id="copyBtn" type="button">
     Copy email text
   </button>
 
+  <p>Once we receive your request, we will confirm availability, total price, and delivery details.</p>
 
-  <p>Once we receive your email, we will provide a confirmation, total cost including shipping, and estimated delivery time.</p>
-
-  <!-- CONTACTS -->
   <div class="contacts">
-    <strong>Contacts:</strong><br>
-    Email: <a href="mailto:donbriz.lighting@gmail.com" class="seller-email">donbriz.lighting@gmail.com</a>
+    <strong>Contact</strong><br>
+    Email:
+    <a href="mailto:donbriz.lighting@gmail.com" class="seller-email">
+      donbriz.lighting@gmail.com
+    </a>
   </div>
 
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
+
   const params = new URLSearchParams(window.location.search);
-  let PRODUCT_ID = params.get("id");
-  if (!PRODUCT_ID) { window.location.replace("index.html"); return; }
+  const PRODUCT_ID = params.get("id");
+  if (!PRODUCT_ID) return;
 
   const response = await fetch("products.csv");
   const csv = await response.text();
@@ -174,26 +188,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   const products = lines.map(line => {
     const values = line.split(";");
     let obj = {};
-    headers.forEach((h,i)=>obj[h]=values[i]);
+    headers.forEach((h, i) => obj[h] = values[i]);
     return obj;
   });
 
-  const product = products.find(p=>p.id===PRODUCT_ID);
-  if(!product) return;
+  const product = products.find(p => p.id === PRODUCT_ID);
+  if (!product) return;
 
-  // Name = title_en + " " + name
   const fullName = `${product.title_en} - ${product.name}`;
+
   document.getElementById("prodName").textContent = fullName;
   document.getElementById("prodDescription").textContent = product.description_en;
-  document.getElementById("prodMaterials").textContent = product.materials.replace(/\\n/g,", ");
+  document.getElementById("prodMaterials").textContent = product.materials.replace(/\\n/g, ", ");
   document.getElementById("prodSpecs").textContent =
     `Diameter: ${product.diameter} cm, Height: ${product.height} cm, Weight: ${product.weight} kg, Lamps: ${product.lamps}`;
+
   document.getElementById("productImage").src = `images/product${PRODUCT_ID}-1.png`;
 
-  // Заполняем email block автоматически
-  const emailBlock = document.getElementById("emailBlock");
-  emailBlock.textContent =
-`To: donbriz.lightining@gmail.com
+  document.getElementById("emailBlock").textContent =
+`To: donbriz.lighting@gmail.com
 Subject: Purchase Request
 
 Hello,
@@ -202,31 +215,27 @@ I would like to place an order for the following light fixture:
 
 Name: ${fullName}
 Description: ${product.description_en}
-Materials: ${product.materials.replace(/\\n/g,", ")}
-Specifications: Diameter: ${product.diameter} cm, Height: ${product.height} cm, Weight: ${product.weight} kg, Lamps: ${product.lamps}
+Materials: ${product.materials.replace(/\\n/g, ", ")}
+Specifications: Diameter ${product.diameter} cm, Height ${product.height} cm, Weight ${product.weight} kg, Lamps ${product.lamps}
 
 Delivery Address:
-[Your full delivery address here]
+[Your full address]
 
 Additional Notes:
-[Any special requests or questions]
+[Any questions or requests]
 
-Thank you!`;
+Thank you.`;
 });
 
 document.getElementById("copyBtn").addEventListener("click", async () => {
-  const text = document.getElementById("emailBlock").value;
+  const text = document.getElementById("emailBlock").textContent.replace(/\n/g, "\r\n");
   await navigator.clipboard.writeText(text);
   document.getElementById("copyBtn").textContent = "Copied ✓";
   setTimeout(() => {
     document.getElementById("copyBtn").textContent = "Copy email text";
   }, 2000);
 });
-
-
-
 </script>
 
 </body>
 </html>
-
