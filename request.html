@@ -13,7 +13,7 @@
       --muted: #666666;
       --line: #e5e5e5;
       --accent: #000000;
-      --highlight: #0066cc; /* синий цвет для выделения */
+      --highlight: #0066cc;
     }
 
     * { box-sizing: border-box; }
@@ -82,6 +82,25 @@
       font-weight: 500;
       margin-bottom: 3px;
     }
+
+    .email-block {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #f9f9f9;
+      padding: 15px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      margin-bottom: 20px;
+      cursor: text;
+    }
+
+    .contacts {
+      margin-top: 40px;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+      font-size: 15px;
+    }
+
   </style>
 </head>
 
@@ -115,9 +134,38 @@
     <li>Any <span class="highlight">additional questions or specifications</span> related to the order.</li>
   </ul>
 
+  <p>You can copy the text below and paste it into your email:</p>
+
+  <!-- COPY-ABLE EMAIL BLOCK -->
+  <div class="email-block" id="emailBlock" contenteditable="true">
+To: donbriz.lightining@gmail.com
+Subject: Purchase Request
+
+Hello,
+
+I would like to place an order for the following light fixture:
+
+Name: 
+Description: 
+Materials: 
+Specifications: 
+
+Delivery Address:
+[Your full delivery address here]
+
+Additional Notes:
+[Any special requests or questions]
+
+Thank you!
+  </div>
+
   <p>Once we receive your email, we will provide a confirmation, total cost including shipping, and estimated delivery time.</p>
 
-  <p>Thank you again for choosing our products. We look forward to serving you!</p>
+  <!-- CONTACTS -->
+  <div class="contacts">
+    <strong>Contacts:</strong><br>
+    Email: <a href="mailto:donbriz.lightining@gmail.com">donbriz.lightining@gmail.com</a>
+  </div>
 
 </div>
 
@@ -143,12 +191,36 @@ document.addEventListener("DOMContentLoaded", async () => {
   if(!product) return;
 
   // Name = title_en + " " + name
-  document.getElementById("prodName").textContent = `${product.title_en} ${product.name}`;
+  const fullName = `${product.title_en} ${product.name}`;
+  document.getElementById("prodName").textContent = fullName;
   document.getElementById("prodDescription").textContent = product.description_en;
   document.getElementById("prodMaterials").textContent = product.materials.replace(/\\n/g,", ");
   document.getElementById("prodSpecs").textContent =
     `Diameter: ${product.diameter} cm, Height: ${product.height} cm, Weight: ${product.weight} kg, Lamps: ${product.lamps}`;
   document.getElementById("productImage").src = `images/product${PRODUCT_ID}-1.png`;
+
+  // Заполняем email block автоматически
+  const emailBlock = document.getElementById("emailBlock");
+  emailBlock.textContent =
+`To: donbriz.lightining@gmail.com
+Subject: Purchase Request
+
+Hello,
+
+I would like to place an order for the following light fixture:
+
+Name: ${fullName}
+Description: ${product.description_en}
+Materials: ${product.materials.replace(/\\n/g,", ")}
+Specifications: Diameter: ${product.diameter} cm, Height: ${product.height} cm, Weight: ${product.weight} kg, Lamps: ${product.lamps}
+
+Delivery Address:
+[Your full delivery address here]
+
+Additional Notes:
+[Any special requests or questions]
+
+Thank you!`;
 });
 </script>
 
