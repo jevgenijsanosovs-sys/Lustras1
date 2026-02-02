@@ -269,20 +269,42 @@ document.addEventListener("DOMContentLoaded", async () => {
   viewer.addEventListener("click", () => { viewer.classList.add("hidden"); viewerImage.src=""; });
   document.addEventListener("keydown", e=>{ if(e.key==="Escape"){viewer.classList.add("hidden");viewerImage.src="";}});
 
-  const imageCount = 6;
-  const base = `images/product${PRODUCT_ID}-`;
-  for(let i=1;i<=imageCount;i++){
-    const img = document.createElement("img");
-    img.src = `${base}${i}.png`;
-    img.dataset.large = img.src;
-    if(i===1){img.classList.add("active"); mainImage.src=img.src;}
-    img.addEventListener("click", ()=>{
-      mainImage.src = img.dataset.large;
-      document.querySelectorAll(".thumbnails img").forEach(t=>t.classList.remove("active"));
-      img.classList.add("active");
+const base = `images/product${PRODUCT_ID}-`;
+let firstImageSet = false;
+
+for (let i = 1; i <= 10; i++) { // 10 — безопасный верхний предел
+  const testImg = new Image();
+  const src = `${base}${i}.png`;
+
+  testImg.onload = () => {
+    const thumb = document.createElement("img");
+    thumb.src = src;
+    thumb.dataset.large = src;
+
+    if (!firstImageSet) {
+      thumb.classList.add("active");
+      mainImage.src = src;
+      firstImageSet = true;
+    }
+
+    thumb.addEventListener("click", () => {
+      mainImage.src = thumb.dataset.large;
+      document
+        .querySelectorAll(".thumbnails img")
+        .forEach(t => t.classList.remove("active"));
+      thumb.classList.add("active");
     });
-    thumbnails.appendChild(img);
-  }
+
+    thumbnails.appendChild(thumb);
+  };
+
+  testImg.onerror = () => {
+    // просто ничего не делаем — файла нет
+  };
+
+  testImg.src = src;
+}
+
 
   // PREV/NEXT NAV
   const prevBtn = document.getElementById("prevBtn");
