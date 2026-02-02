@@ -144,6 +144,11 @@
 
   <!-- COPY-ABLE EMAIL BLOCK -->
   <textarea class="email-block" id="emailBlock" readonly></textarea>
+  <!-- COPY BUTTON -->
+  <button class="button" id="copyBtn" type="button">
+    Copy email text
+  </button>
+
 To: donbriz.lightining@gmail.com
 Subject: Purchase Request
 
@@ -228,6 +233,15 @@ Additional Notes:
 
 Thank you!`;
 });
+
+document.getElementById("copyBtn").addEventListener("click", () => {
+  const text = document.getElementById("emailBlock").value;
+  navigator.clipboard.writeText(text).then(() => {
+    alert("Email text copied to clipboard");
+  });
+});
+
+
 </script>
 
 </body>
