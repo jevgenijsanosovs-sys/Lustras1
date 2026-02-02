@@ -1,190 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Request Purchase</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Request Purchase</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-:root {
-  --bg:#fff;
-  --text:#111;
-  --muted:#666;
-  --line:#e5e5e5;
-  --accent:#000;
-}
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --line: #e5e5e5;
+      --accent: #000000;
+      --highlight: #0066cc;
+    }
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.6;
-}
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-.container{
-  max-width:800px;
-  margin:0 auto;
-  padding:40px 20px;
-}
+    a { color: var(--text); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-.back{
-  font-size:14px;
-  color:var(--muted);
-  display:inline-block;
-  margin-bottom:30px;
-}
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
 
-h1{font-size:28px;margin-bottom:20px}
-p{margin-bottom:16px;font-size:16px}
+    .back {
+      font-size: 14px;
+      color: var(--muted);
+      display: inline-block;
+      margin-bottom: 30px;
+    }
 
-.product-summary{
-  border:1px solid var(--line);
-  padding:20px;
-  margin:20px 0;
-  display:flex;
-  gap:20px;
-}
+    h1 { font-size: 28px; margin-bottom: 20px; }
+    p { margin-bottom: 16px; font-size: 16px; }
+    ul { margin-left: 20px; margin-bottom: 20px; }
+    li { margin-bottom: 8px; }
 
-.product-summary img{
-  width:120px;
-  height:120px;
-  object-fit:contain;
-  border:1px solid var(--line);
-}
+    .highlight { font-weight: 500; }
+    .seller-email {
+      color: var(--highlight);
+      font-style: italic;
+    }
 
-.product-details span{
-  display:block;
-  margin-bottom:6px;
-}
+    /* PRODUCT SUMMARY */
+    .product-summary {
+      border: 1px solid var(--line);
+      padding: 20px;
+      margin: 20px 0;
+      display: flex;
+      gap: 20px;
+    }
 
-.email-block{
-  width:100%;
-  min-height:260px;
-  padding:15px;
-  border:1px solid var(--line);
-  background:#f9f9f9;
-  font-family:monospace;
-  white-space:pre;
-  resize:vertical;
-  margin-bottom:15px;
-}
+    .product-summary img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border: 1px solid var(--line);
+    }
 
-.actions{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-bottom:30px;
-}
+    .product-details span {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
 
-.button{
-  padding:12px 22px;
-  border:1px solid var(--accent);
-  background:#fff;
-  cursor:pointer;
-  text-transform:uppercase;
-  font-size:13px;
-  letter-spacing:.05em;
-}
+    .product-details strong {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
 
-.button:hover{
-  background:#000;
-  color:#fff;
-}
+    /* EMAIL TEMPLATE */
+    .email-block {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #f9f9f9;
+      padding: 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      white-space: pre-wrap;
+      min-height: 260px;
+      margin-bottom: 15px;
+    }
 
-.note{
-  font-size:14px;
-  color:var(--muted);
-  margin-top:10px;
-}
+    .email-block:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
 
-.contacts{
-  border-top:1px solid var(--line);
-  padding-top:20px;
-  font-size:15px;
-}
-</style>
+    .button {
+      padding: 12px 24px;
+      border: 1px solid var(--accent);
+      background: transparent;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .contacts {
+      margin-top: 40px;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+      font-size: 15px;
+    }
+  </style>
 </head>
 
 <body>
 <div class="container">
 
-<a href="index.html" class="back">← Back to collection</a>
+  <a href="index.html" class="back">← Back to collection</a>
 
-<h1>Request Purchase</h1>
+  <h1>Request Purchase</h1>
 
-<p>Please copy the email text below and send it to the seller.</p>
+  <p>Thank you for your interest in our collection.</p>
 
-<!-- PRODUCT -->
-<div class="product-summary">
-  <img id="productImage" src="">
-  <div class="product-details">
-    <span><strong>Name:</strong> <span id="prodName"></span></span>
-    <span><strong>Description:</strong> <span id="prodDescription"></span></span>
-    <span><strong>Materials:</strong> <span id="prodMaterials"></span></span>
-    <span><strong>Specifications:</strong> <span id="prodSpecs"></span></span>
+  <p>Please review the selected light fixture below. You can copy the prepared email text and paste it into your email application.</p>
+
+  <!-- PRODUCT SUMMARY -->
+  <div class="product-summary">
+    <img id="productImage" src="" alt="">
+    <div class="product-details">
+      <span><strong>Name</strong><span id="prodName"></span></span>
+      <span><strong>Description</strong><span id="prodDescription"></span></span>
+      <span><strong>Materials</strong><span id="prodMaterials"></span></span>
+      <span><strong>Specifications</strong><span id="prodSpecs"></span></span>
+    </div>
   </div>
-</div>
 
-<!-- EMAIL TEXT -->
-<textarea id="emailBlock" class="email-block" readonly></textarea>
+  <p>
+    Delivery is arranged according to our
+    <a href="delivery.html" target="_blank"><strong>Delivery & Shipping</strong></a> policy.
+  </p>
 
-<div class="actions">
-  <button class="button" id="copyBtn" type="button">Copy email text</button>
-  <a class="button" id="openMailBtn"
-     href="mailto:donbriz.lighting@gmail.com?subject=Purchase%20Request">
-     Open email app
-  </a>
-</div>
+  <p>
+    Please send your purchase request by email to
+    <a href="mailto:donbriz.lighting@gmail.com" class="seller-email">donbriz.lighting@gmail.com</a>
+    including the information below.
+  </p>
 
-<p class="note" id="iosNote" style="display:none">
-On iPhone or iPad: please paste the copied text into the email body.
-</p>
+  <!-- EMAIL TEMPLATE -->
+  <pre id="emailBlock" class="email-block" contenteditable="true"></pre>
 
-<div class="contacts">
-<strong>Contact:</strong><br>
-donbriz.lighting@gmail.com
-</div>
+  <button class="button" id="copyBtn" type="button">
+    Copy email text
+  </button>
+
+  <p>Once we receive your request, we will confirm availability, total price, and delivery details.</p>
+
+  <div class="contacts">
+    <strong>Contact</strong><br>
+    Email:
+    <a href="mailto:donbriz.lighting@gmail.com" class="seller-email">
+      donbriz.lighting@gmail.com
+    </a>
+  </div>
 
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
 
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  if(isIOS){
-    document.getElementById("openMailBtn").style.display="none";
-    document.getElementById("iosNote").style.display="block";
-  }
+  const params = new URLSearchParams(window.location.search);
+  const PRODUCT_ID = params.get("id");
+  if (!PRODUCT_ID) return;
 
-  const id = new URLSearchParams(location.search).get("id");
-  if(!id) location.href="index.html";
-
-  const csv = await (await fetch("products.csv")).text();
-  const lines = csv.trim().split("\n");
+  const response = await fetch("products.csv");
+  const csv = await response.text();
+  const lines = csv.split("\n").map(l => l.trim()).filter(Boolean);
   const headers = lines.shift().split(";");
 
-  const products = lines.map(l=>{
-    const v=l.split(";");
-    let o={};
-    headers.forEach((h,i)=>o[h]=v[i]);
-    return o;
+  const products = lines.map(line => {
+    const values = line.split(";");
+    let obj = {};
+    headers.forEach((h, i) => obj[h] = values[i]);
+    return obj;
   });
 
-  const p = products.find(x=>x.id===id);
-  if(!p) return;
+  const product = products.find(p => p.id === PRODUCT_ID);
+  if (!product) return;
 
-  const name = `${p.title_en} - ${p.name || ""}`;
+  const fullName = `${product.title_en} - ${product.name}`;
 
-  document.getElementById("prodName").textContent = name;
-  document.getElementById("prodDescription").textContent = p.description_en;
-  document.getElementById("prodMaterials").textContent = p.materials?.replace(/\\n/g,", ");
+  document.getElementById("prodName").textContent = fullName;
+  document.getElementById("prodDescription").textContent = product.description_en;
+  document.getElementById("prodMaterials").textContent = product.materials.replace(/\\n/g, ", ");
   document.getElementById("prodSpecs").textContent =
-    `Diameter: ${p.diameter} cm, Height: ${p.height} cm, Weight: ${p.weight} kg, Lamps: ${p.lamps}`;
-  document.getElementById("productImage").src = `images/product${id}-1.png`;
+    `Diameter: ${product.diameter} cm, Height: ${product.height} cm, Weight: ${product.weight} kg, Lamps: ${product.lamps}`;
 
-  const emailText =
+  document.getElementById("productImage").src = `images/product${PRODUCT_ID}-1.png`;
+
+  document.getElementById("emailBlock").textContent =
 `To: donbriz.lighting@gmail.com
 Subject: Purchase Request
 
@@ -192,27 +213,27 @@ Hello,
 
 I would like to place an order for the following light fixture:
 
-Name: ${name}
-Description: ${p.description_en}
-Materials: ${p.materials?.replace(/\\n/g,", ")}
-Specifications: Diameter: ${p.diameter} cm, Height: ${p.height} cm, Weight: ${p.weight} kg, Lamps: ${p.lamps}
+Name: ${fullName}
+Description: ${product.description_en}
+Materials: ${product.materials.replace(/\\n/g, ", ")}
+Specifications: Diameter ${product.diameter} cm, Height ${product.height} cm, Weight ${product.weight} kg, Lamps ${product.lamps}
 
 Delivery Address:
-[Your full delivery address]
+[Your full address]
 
 Additional Notes:
-[Any questions]
+[Any questions or requests]
 
-Thank you!`;
+Thank you.`;
+});
 
-  document.getElementById("emailBlock").value = emailText;
-
-  document.getElementById("copyBtn").onclick = async ()=>{
-    await navigator.clipboard.writeText(emailText);
-    document.getElementById("copyBtn").textContent="Copied ✓";
-    setTimeout(()=>document.getElementById("copyBtn").textContent="Copy email text",2000);
-  };
-
+document.getElementById("copyBtn").addEventListener("click", async () => {
+  const text = document.getElementById("emailBlock").textContent.replace(/\n/g, "\r\n");
+  await navigator.clipboard.writeText(text);
+  document.getElementById("copyBtn").textContent = "Copied ✓";
+  setTimeout(() => {
+    document.getElementById("copyBtn").textContent = "Copy email text";
+  }, 2000);
 });
 </script>
 
