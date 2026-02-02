@@ -107,7 +107,7 @@
     </div>
   </div>
 
-  <p>To place a purchase request, please send an email <span class="seller-email">to the Seller's email address</span> with the following information:</p>
+  <p>To place a purchase request, please send an email <a href="mailto:donbriz.lightining@gmail.com" class="seller-email">to the Seller's email address</a> with the following information:</p>
 
   <ul>
     <li>The <span class="highlight">name of the light fixture</span>.</li>
@@ -123,12 +123,10 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
-  // Получаем ID продукта из URL
   const params = new URLSearchParams(window.location.search);
   let PRODUCT_ID = params.get("id");
   if (!PRODUCT_ID) { window.location.replace("index.html"); return; }
 
-  // Загружаем CSV с продуктами
   const response = await fetch("products.csv");
   const csv = await response.text();
   const lines = csv.split("\n").map(l => l.trim()).filter(Boolean);
@@ -144,8 +142,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const product = products.find(p=>p.id===PRODUCT_ID);
   if(!product) return;
 
-  // Подставляем данные в блок продукта
-  document.getElementById("prodName").textContent = product.title_en;
+  // Name = title_en + " " + name
+  document.getElementById("prodName").textContent = `${product.title_en} ${product.name}`;
   document.getElementById("prodDescription").textContent = product.description_en;
   document.getElementById("prodMaterials").textContent = product.materials.replace(/\\n/g,", ");
   document.getElementById("prodSpecs").textContent =
