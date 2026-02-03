@@ -197,6 +197,17 @@
     .site-footer span {
       margin: 0 8px;
     }
+
+	.lead {
+  		font-size: 16px;
+	}
+
+	.note {
+  		font-size: 13px;
+  		color: var(--muted);
+  		margin-top: 8px;
+	}
+
   </style>
 </head>
 
@@ -211,10 +222,12 @@
       <header>
         <h1>Exclusive Chandeliers</h1>
         <h3>Select Exhibits from Private Collection</h3>
-        <p>
-			A private exhibition collection of crystal chandeliers and lighting objects.<br>
-			Each piece is available in a single example.
+        <p class="lead">
+			A private exhibition collection of crystal chandeliers and lighting objects.
         </p>
+		<p class="note">
+  			Each piece is available in a single example.
+		</p>
       </header>
 
       <div class="grid" id="catalog"></div>
@@ -307,5 +320,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 </body>
 </html>
+
 
 
