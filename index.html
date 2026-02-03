@@ -308,7 +308,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         <h2>${p.title_en}</h2>
         <div class="subtitle">${p.subtitle_en || ""}</div>
         <div class="price">
-          ${p.sale_price ? `<span class="sale-price">€${p.sale_price}</span>` : ""}
+          /* ${p.sale_price ? `<span class="sale-price">€${p.sale_price}</span>` : ""} */
+		  ${p.sale_price ? `<span class="sale-price">${p.sale_price}</span>` : ""}
         </div>
       </div>
     `;
@@ -321,6 +322,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 </body>
 </html>
+
 
 
 
