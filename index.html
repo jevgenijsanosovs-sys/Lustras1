@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Mastercrafted Lighting</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  
   <!-- SEO -->
   <meta name="description"
         content="A private exhibition collection of one-off lighting objects and chandeliers. Each piece available in a single example.">
@@ -165,39 +165,40 @@
       }
     }
 
-    /* ===== FIXED FOOTER ===== */
+/* ===== FIXED FOOTER ===== */
 
-    .site-footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      border-top: 1px solid var(--line);
-      background: var(--bg);
-      padding: 18px 20px;
-      font-size: 13px;
-      color: var(--muted);
-    }
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+  padding: 18px 20px;
+  font-size: 13px;               /* фиксированный размер */
+  color: var(--muted);
+  -webkit-text-size-adjust: 100%; /* предотвращает увеличение текста на iOS */
+  box-sizing: border-box;         /* чтобы паддинги не ломали ширину */
+}
 
-    .site-footer .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      text-align: center;
-    }
+.site-footer .footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
 
-    .site-footer a {
-      color: var(--muted);
-      text-decoration: none;
-    }
+.site-footer a {
+  color: var(--muted);
+  text-decoration: none;
+}
 
-    .site-footer a:hover {
-      color: var(--text);
-    }
+.site-footer a:hover {
+  color: var(--text);
+}
 
-    .site-footer span {
-      margin: 0 8px;
-    }
-
+.site-footer span {
+  margin: 0 8px;
+}
 	.lead {
   		font-size: 16px;
 	}
@@ -320,6 +321,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 </body>
 </html>
+
 
 
 
