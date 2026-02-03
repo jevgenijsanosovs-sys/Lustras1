@@ -266,7 +266,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("style").textContent = product.style;
   document.getElementById("detailed_condition").textContent = product.detailed_condition;
   document.getElementById("materials").innerHTML = product.materials.replace(/\\n/g,"<br>");
-  document.getElementById("sale_price").textContent = "€"+product.sale_price;
+  /* document.getElementById("sale_price").textContent = "€"+product.sale_price; */
+  document.getElementById("sale_price").textContent = product.sale_price;
   document.getElementById("specs").innerHTML=
     `Diameter: ${product.diameter} cm<br>
      Height: ${product.height} cm<br>
@@ -348,6 +349,7 @@ for (let i = 1; i <= 10; i++) { // 10 — безопасный верхний п
 
 </body>
 </html>
+
 
 
 
