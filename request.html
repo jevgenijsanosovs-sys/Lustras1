@@ -236,6 +236,20 @@ document.getElementById("copyBtn").addEventListener("click", async () => {
   }, 2000);
 });
 </script>
+<script>
+  function isIOSDevice() {
+    const ua = navigator.userAgent;
+    const isIOSUA = /iPad|iPhone|iPod/.test(ua);
+    const isIPadOS = ua.includes("Macintosh") && navigator.maxTouchPoints && navigator.maxTouchPoints > 1;
+    return isIOSUA || isIPadOS;
+  }
+
+  if (isIOSDevice()) {
+    const copyBtn = document.getElementById('copyBtn');
+    if (copyBtn) copyBtn.style.display = 'none';
+  }
+</script>
 
 </body>
 </html>
+
