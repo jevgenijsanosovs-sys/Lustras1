@@ -1,244 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Lighting Object</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- SEO -->
-  <meta name="description" content="">
-  <link rel="canonical" id="canonical-link" href="">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="">
-  <meta property="og:description" content="">
-  <meta property="og:image" content="">
-  <meta property="og:type" content="product">
-
-  <!-- SCHEMA PLACEHOLDER -->
-  <script id="schema-product" type="application/ld+json"></script>
-  <script id="schema-breadcrumb" type="application/ld+json"></script>
-  
-  <style>
-    :root {
-      --bg: #ffffff;
-      --text: #111111;
-      --muted: #666666;
-      --line: #e5e5e5;
-      --accent: #000000;
-    }
-
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    a { color: var(--text); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    .back {
-      font-size: 14px;
-      color: var(--muted);
-      display: inline-block;
-      margin-bottom: 30px;
-    }
-
-    .product {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 60px;
-    }
-
-    .gallery { position: relative; }
-
-    .main-image {
-      width: 100%;
-      height: 700px;
-      object-fit: contain;
-      margin-bottom: 15px;
-      cursor: zoom-in;
-    }
-
-    .thumbnails {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .thumbnails img {
-      width: 80px;
-      height: 80px;
-      object-fit: contain;
-      cursor: pointer;
-      opacity: 0.6;
-      border: 1px solid transparent;
-      transition: opacity 0.3s, border-color 0.3s;
-    }
-
-    .thumbnails img.active {
-      opacity: 1;
-      border-color: var(--accent);
-    }
-
-    .info h1 {
-      font-size: 28px;
-      font-weight: 500;
-      margin: 0 0 10px;
-    }
-
-    .subtitle {
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    .intro {
-      font-size: 15px;
-      color: var(--muted);
-      margin: 20px 0 30px;
-      max-width: 420px;
-    }
-
-    .section {
-      margin-bottom: 20px;
-      font-size: 15px;
-    }
-
-    .section strong {
-      display: block;
-      font-weight: 500;
-      margin-bottom: 5px;
-    }
-
-    .price { font-size: 20px; }
-    .sale_price { font-size: 22px; margin-bottom: 30px; }
-
-    .button {
-      padding: 14px 28px;
-      border: 1px solid var(--accent);
-      background: transparent;
-      font-size: 14px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-      display: inline-block;
-      color: var(--text);
-    }
-
-    .button:hover {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .trust {
-      margin-top: 10px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    /* IMAGE VIEWER */
-    .viewer {
-      position: fixed;
-      inset: 0;
-      background: rgba(255,255,255,0.96);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      cursor: zoom-out;
-    }
-
-    .viewer img {
-      max-width: 92vw;
-      max-height: 92vh;
-      object-fit: contain;
-    }
-
-    .hidden { display: none; }
-
-    /* SIDE NAV */
-    .page-nav {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.4);
-      color: #fff;
-      border: none;
-      font-size: 28px;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    .page-nav.prev { left: 12px; }
-    .page-nav.next { right: 12px; }
-
-    @media (max-width: 768px) {
-      .product { grid-template-columns: 1fr; }
-      .main-image { height: 360px; }
-    }
-  </style>
-</head>
-
-<body>
-<div class="container">
-
-  <a href="index.html" class="back">← Back to collection</a>
-
-  <div class="product">
-
-    <div class="gallery">
-      <img id="mainImage" class="main-image" src="" alt="">
-      <div class="thumbnails" id="thumbnails"></div>
-    </div>
-
-    <div class="info">
-      <h1 id="title"></h1>
-      <div class="subtitle" id="subtitle"></div>
-
-      <div class="intro">
-        A one-off lighting object from a private exhibition collection.
-        Designed as a complete piece rather than a series product.
-      </div>
-
-      <div class="section"><strong>Description</strong><span id="description"></span></div>
-      <div class="section"><strong>Manufacturer</strong><span id="manufacturer"></span></div>
-      <div class="section"><strong>Style</strong><span id="style"></span></div>
-      <div class="section"><strong>Materials</strong><span id="materials"></span></div>
-      <div class="section"><strong>Condition</strong><span id="detailed_condition"></span></div>
-      <div class="section"><strong>Specifications</strong><span id="specs"></span></div>
-
-      <div class="sale_price" id="sale_price"></div>
-
-      <a id="requestBtn" href="#" class="button">Request availability</a>
-      <div class="trust">Private sale · One-off object · Direct ownership</div>
-    </div>
-  </div>
-</div>
-
-<div id="imageViewer" class="viewer hidden">
-  <img id="viewerImage" src="" alt="">
-</div>
-
-<button class="page-nav prev" id="prevBtn">‹</button>
-<button class="page-nav next" id="nextBtn">›</button>
-
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -287,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       "@type": "Offer",
       "url": canonical,
       "priceCurrency": "EUR",
-      /* "price": product.sale_price, */
+      /* "price": product.sale_price, */  // <--- восстановлено
       "availability": "https://schema.org/InStock",
       "itemCondition": "https://schema.org/UsedCondition"
     }
@@ -300,23 +59,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Collection",
-        "item": "https://www.donbriz-lighting.com/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": product.title_en,
-        "item": canonical
-      }
+      { "@type": "ListItem", "position": 1, "name": "Collection", "item": "https://www.donbriz-lighting.com/" },
+      { "@type": "ListItem", "position": 2, "name": product.title_en, "item": canonical }
     ]
   };
   document.getElementById("schema-breadcrumb").textContent =
-  JSON.stringify(breadcrumb);
-
+    JSON.stringify(breadcrumb);
 
   /* ===== CONTENT ===== */
   document.getElementById("title").textContent = product.title_en;
@@ -332,41 +80,67 @@ document.addEventListener("DOMContentLoaded", async () => {
      Height: ${product.height} cm<br>
      Weight: ${product.weight} kg<br>
      Lamps: ${product.lamps}`;
-
   document.getElementById("requestBtn").href = `request.html?id=${PRODUCT_ID}`;
 
   /* ===== GALLERY ===== */
-  const mainImage=document.getElementById("mainImage");
-  const thumbs=document.getElementById("thumbnails");
-  const viewer=document.getElementById("imageViewer");
-  const viewerImg=document.getElementById("viewerImage");
+  const mainImage = document.getElementById("mainImage");
+  const thumbs = document.getElementById("thumbnails");
+  const viewer = document.getElementById("imageViewer");
+  const viewerImg = document.getElementById("viewerImage");
 
-  mainImage.onclick=()=>{viewerImg.src=mainImage.src;viewer.classList.remove("hidden");};
-  viewer.onclick=()=>viewer.classList.add("hidden");
+  mainImage.onclick = () => {
+    viewerImg.src = mainImage.src;
+    viewer.classList.remove("hidden");
+  };
+  viewer.onclick = () => viewer.classList.add("hidden");
 
-  let first=true;
-  for(let i=1;i<=10;i++){
-    const src=`images/product${PRODUCT_ID}-${i}.png`;
-    const img=new Image();
-    img.onload=()=>{
-      const t=document.createElement("img");
-      t.src=src;
-      if(first){mainImage.src=src;t.classList.add("active");first=false;}
-      t.onclick=()=>{
-        mainImage.src=src;
-        document.querySelectorAll(".thumbnails img").forEach(x=>x.classList.remove("active"));
+  const imageSources = [];
+  let firstLoaded = false;
+
+  // Загружаем миниатюры, проверяем существование изображений
+  for (let i = 1; i <= 10; i++) {
+    const src = `images/product${PRODUCT_ID}-${i}.png`;
+    const img = new Image();
+    img.onload = () => {
+      imageSources.push(src); // только реально существующие изображения
+      const t = document.createElement("img");
+      t.src = src;
+      if (!firstLoaded) {
+        mainImage.src = src;
         t.classList.add("active");
+        currentIndex = 0;
+        firstLoaded = true;
+      }
+      t.onclick = () => {
+        currentIndex = imageSources.indexOf(src);
+        showImage(currentIndex);
       };
       thumbs.appendChild(t);
     };
-    img.src=src;
+    img.onerror = () => {
+      // Если изображения нет, просто пропускаем
+      console.warn(`Image not found: ${src}`);
+    };
+    img.src = src;
   }
+
+  /* ===== IMAGE NAVIGATION ===== */
+  let currentIndex = 0;
+
+  function showImage(index) {
+    if (imageSources.length === 0) return;
+    if (index < 0) index = imageSources.length - 1;
+    if (index >= imageSources.length) index = 0;
+    currentIndex = index;
+    mainImage.src = imageSources[index];
+    // обновляем активный thumbnail
+    thumbs.querySelectorAll("img").forEach((img, idx) => {
+      img.classList.toggle("active", imageSources[idx] === imageSources[index]);
+    });
+  }
+
+  document.getElementById("prevBtn").onclick = () => showImage(currentIndex - 1);
+  document.getElementById("nextBtn").onclick = () => showImage(currentIndex + 1);
 
 });
 </script>
-</body>
-</html>
-
-
-
-
