@@ -279,15 +279,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     "description": product.seo_description_en,
     "image": [`https://www.donbriz-lighting.com/images/product${PRODUCT_ID}-1.png`],
     "sku": product.id,
+    "manufacturer": {
+      "@type": "Organization",
+      "name": product.manufacturer
+    }    
     "offers": {
       "@type": "Offer",
       "url": canonical,
       "priceCurrency": "EUR",
-      "price": product.sale_price,
+      /* "price": product.sale_price, */
       "availability": "https://schema.org/InStock",
       "itemCondition": "https://schema.org/UsedCondition"
     }
   };
+  
   document.getElementById("schema-product").textContent =
     JSON.stringify(schema);
 
@@ -361,4 +366,5 @@ document.addEventListener("DOMContentLoaded", async () => {
 </script>
 </body>
 </html>
+
 
