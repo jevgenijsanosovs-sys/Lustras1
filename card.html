@@ -18,7 +18,8 @@
 
   <!-- SCHEMA PLACEHOLDER -->
   <script id="schema-product" type="application/ld+json"></script>
-
+  <script id="schema-breadcrumb" type="application/ld+json"></script>
+  
   <style>
     :root {
       --bg: #ffffff;
@@ -290,6 +291,28 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("schema-product").textContent =
     JSON.stringify(schema);
 
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Collection",
+        "item": "https://www.donbriz-lighting.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": product.title_en,
+        "item": canonical
+      }
+    ]
+  };
+  document.getElementById("schema-breadcrumb").textContent =
+  JSON.stringify(breadcrumb);
+
+
   /* ===== CONTENT ===== */
   document.getElementById("title").textContent = product.title_en;
   document.getElementById("subtitle").textContent = product.subtitle_en;
@@ -338,3 +361,4 @@ document.addEventListener("DOMContentLoaded", async () => {
 </script>
 </body>
 </html>
+
