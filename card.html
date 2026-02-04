@@ -2,13 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Crystal Collection</title>
+  <title>Lighting Object</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
   <meta name="description" content="">
+  <link rel="canonical" id="canonical-link" href="">
+
+  <!-- Open Graph -->
   <meta property="og:title" content="">
   <meta property="og:description" content="">
   <meta property="og:image" content="">
   <meta property="og:type" content="product">
+
+  <!-- SCHEMA PLACEHOLDER -->
+  <script id="schema-product" type="application/ld+json"></script>
 
   <style>
     :root {
@@ -21,14 +30,15 @@
 
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
+
     body {
-      margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
                    Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
+
     a { color: var(--text); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
@@ -52,11 +62,11 @@
     }
 
     .gallery { position: relative; }
+
     .main-image {
       width: 100%;
       height: 700px;
       object-fit: contain;
-      display: block;
       margin-bottom: 15px;
       cursor: zoom-in;
     }
@@ -74,7 +84,7 @@
       cursor: pointer;
       opacity: 0.6;
       border: 1px solid transparent;
-      transition: border-color 0.3s, opacity 0.3s;
+      transition: opacity 0.3s, border-color 0.3s;
     }
 
     .thumbnails img.active {
@@ -82,15 +92,40 @@
       border-color: var(--accent);
     }
 
-    .info h1 { font-size: 28px; font-weight: 500; margin: 0 0 10px; }
-    .subtitle { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
-    .price { font-size: 20px; margin-bottom: 5px; }
+    .info h1 {
+      font-size: 28px;
+      font-weight: 500;
+      margin: 0 0 10px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .intro {
+      font-size: 15px;
+      color: var(--muted);
+      margin: 20px 0 30px;
+      max-width: 420px;
+    }
+
+    .section {
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .section strong {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .price { font-size: 20px; }
     .sale_price { font-size: 22px; margin-bottom: 30px; }
-    .section { margin-bottom: 25px; font-size: 15px; }
-    .section strong { display: block; font-weight: 500; margin-bottom: 5px; }
 
     .button {
-      margin-top: 20px;
       padding: 14px 28px;
       border: 1px solid var(--accent);
       background: transparent;
@@ -100,14 +135,18 @@
       cursor: pointer;
       transition: background 0.3s, color 0.3s;
       display: inline-block;
-      text-align: center;
-      text-decoration: none;
       color: var(--text);
     }
 
     .button:hover {
       background: var(--accent);
       color: #fff;
+    }
+
+    .trust {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
     }
 
     /* IMAGE VIEWER */
@@ -130,7 +169,7 @@
 
     .hidden { display: none; }
 
-    /* SIDE NAV BUTTONS */
+    /* SIDE NAV */
     .page-nav {
       position: fixed;
       top: 50%;
@@ -143,37 +182,16 @@
       border: none;
       font-size: 28px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       z-index: 1000;
-      transition: background 0.3s;
     }
 
-    .page-nav:hover { background: rgba(0,0,0,0.7); }
     .page-nav.prev { left: 12px; }
     .page-nav.next { right: 12px; }
 
     @media (max-width: 768px) {
       .product { grid-template-columns: 1fr; }
       .main-image { height: 360px; }
-      .page-nav { width: 36px; height: 36px; font-size: 22px; }
     }
-
-    .intro {
-      font-size: 15px;
-      color: var(--muted);
-      margin: 20px 0 30px;
-      max-width: 420px;
-    }
-
-    .trust {
-      margin-top: 10px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    
   </style>
 </head>
 
@@ -184,21 +202,20 @@
 
   <div class="product">
 
-    <!-- GALLERY -->
     <div class="gallery">
       <img id="mainImage" class="main-image" src="" alt="">
       <div class="thumbnails" id="thumbnails"></div>
     </div>
 
-    <!-- INFORMATION -->
     <div class="info">
       <h1 id="title"></h1>
       <div class="subtitle" id="subtitle"></div>
+
       <div class="intro">
         A one-off lighting object from a private exhibition collection.
         Designed as a complete piece rather than a series product.
       </div>
-      <div class="section"><strong>Name</strong><span id="name"></span></div>
+
       <div class="section"><strong>Description</strong><span id="description"></span></div>
       <div class="section"><strong>Manufacturer</strong><span id="manufacturer"></span></div>
       <div class="section"><strong>Style</strong><span id="style"></span></div>
@@ -206,24 +223,18 @@
       <div class="section"><strong>Condition</strong><span id="detailed_condition"></span></div>
       <div class="section"><strong>Specifications</strong><span id="specs"></span></div>
 
-      <div class="price"><span id="price"></span></div>
-      <div class="sale_price"><span id="sale_price"></span></div>
+      <div class="sale_price" id="sale_price"></div>
 
-      <!-- BUTTON TO REQUEST PAGE -->
       <a id="requestBtn" href="#" class="button">Request availability</a>
-      <div class="trust">
-        Private sale · One-off object · Direct ownership
-      </div>
-    </div>    
+      <div class="trust">Private sale · One-off object · Direct ownership</div>
+    </div>
   </div>
 </div>
 
-<!-- IMAGE VIEWER -->
 <div id="imageViewer" class="viewer hidden">
   <img id="viewerImage" src="" alt="">
 </div>
 
-<!-- SIDE NAV BUTTONS -->
 <button class="page-nav prev" id="prevBtn">‹</button>
 <button class="page-nav next" id="nextBtn">›</button>
 
@@ -231,129 +242,99 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
   const params = new URLSearchParams(window.location.search);
-  let PRODUCT_ID = params.get("id");
-  if (!PRODUCT_ID) { window.location.replace("index.html"); return; }
+  const PRODUCT_ID = params.get("id");
+  if (!PRODUCT_ID) { location.href = "index.html"; return; }
 
   const response = await fetch("products.csv");
   const csv = await response.text();
 
-  const lines = csv.split("\n").map(l => l.trim()).filter(Boolean);
+  const lines = csv.split("\n").map(l=>l.trim()).filter(Boolean);
   const headers = lines.shift().split(";");
-
-  const products = lines.map(line => {
-    const values = line.split(";");
-    let obj = {};
-    headers.forEach((h,i)=>obj[h]=values[i]);
-    return obj;
+  const products = lines.map(line=>{
+    const values=line.split(";");
+    let o={}; headers.forEach((h,i)=>o[h]=values[i]); return o;
   });
 
   const product = products.find(p=>p.id===PRODUCT_ID);
   if(!product) return;
 
-  // SEO META
+  /* ===== SEO ===== */
   document.title = product.seo_title_en;
-  document.querySelector("meta[name='description']").setAttribute("content", product.seo_description_en);
-  document.querySelector("meta[property='og:title']").setAttribute("content", product.seo_title_en);
-  document.querySelector("meta[property='og:description']").setAttribute("content", product.seo_description_en);
-  document.querySelector("meta[property='og:image']").setAttribute("content", window.location.origin+`/images/product${PRODUCT_ID}-1.png`);
+  document.querySelector("meta[name='description']").content = product.seo_description_en;
+  document.querySelector("meta[property='og:title']").content = product.seo_title_en;
+  document.querySelector("meta[property='og:description']").content = product.seo_description_en;
+  document.querySelector("meta[property='og:image']").content =
+    `https://www.donbriz-lighting.com/images/product${PRODUCT_ID}-1.png`;
 
-  // TEXT CONTENT
+  const canonical =
+    `https://www.donbriz-lighting.com/card.html?id=${PRODUCT_ID}`;
+  document.getElementById("canonical-link").href = canonical;
+
+  /* ===== SCHEMA.ORG ===== */
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.title_en,
+    "description": product.seo_description_en,
+    "image": [`https://www.donbriz-lighting.com/images/product${PRODUCT_ID}-1.png`],
+    "sku": product.id,
+    "offers": {
+      "@type": "Offer",
+      "url": canonical,
+      "priceCurrency": "EUR",
+      "price": product.sale_price,
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/UsedCondition"
+    }
+  };
+  document.getElementById("schema-product").textContent =
+    JSON.stringify(schema);
+
+  /* ===== CONTENT ===== */
   document.getElementById("title").textContent = product.title_en;
   document.getElementById("subtitle").textContent = product.subtitle_en;
-  document.getElementById("name").textContent = product.name;
-  document.getElementById("manufacturer").textContent = product.manufacturer;
   document.getElementById("description").textContent = product.description_en;
+  document.getElementById("manufacturer").textContent = product.manufacturer;
   document.getElementById("style").textContent = product.style;
-  document.getElementById("detailed_condition").textContent = product.detailed_condition;
   document.getElementById("materials").innerHTML = product.materials.replace(/\\n/g,"<br>");
-  /* document.getElementById("sale_price").textContent = "€"+product.sale_price; */
+  document.getElementById("detailed_condition").textContent = product.detailed_condition;
   document.getElementById("sale_price").textContent = product.sale_price;
-  document.getElementById("specs").innerHTML=
+  document.getElementById("specs").innerHTML =
     `Diameter: ${product.diameter} cm<br>
      Height: ${product.height} cm<br>
      Weight: ${product.weight} kg<br>
      Lamps: ${product.lamps}`;
 
-  // Set Request button href with ID
   document.getElementById("requestBtn").href = `request.html?id=${PRODUCT_ID}`;
 
-  // GALLERY
-  const thumbnails = document.getElementById("thumbnails");
-  const mainImage = document.getElementById("mainImage");
-  const viewer = document.getElementById("imageViewer");
-  const viewerImage = document.getElementById("viewerImage");
+  /* ===== GALLERY ===== */
+  const mainImage=document.getElementById("mainImage");
+  const thumbs=document.getElementById("thumbnails");
+  const viewer=document.getElementById("imageViewer");
+  const viewerImg=document.getElementById("viewerImage");
 
-  mainImage.addEventListener("click", () => {
-    viewerImage.src = mainImage.src;
-    viewer.classList.remove("hidden");
-  });
-  viewer.addEventListener("click", () => { viewer.classList.add("hidden"); viewerImage.src=""; });
-  document.addEventListener("keydown", e=>{ if(e.key==="Escape"){viewer.classList.add("hidden");viewerImage.src="";}});
+  mainImage.onclick=()=>{viewerImg.src=mainImage.src;viewer.classList.remove("hidden");};
+  viewer.onclick=()=>viewer.classList.add("hidden");
 
-const base = `images/product${PRODUCT_ID}-`;
-let firstImageSet = false;
-
-for (let i = 1; i <= 10; i++) { // 10 — безопасный верхний предел
-  const testImg = new Image();
-  const src = `${base}${i}.png`;
-
-  testImg.onload = () => {
-    const thumb = document.createElement("img");
-    thumb.src = src;
-    thumb.dataset.large = src;
-
-    if (!firstImageSet) {
-      thumb.classList.add("active");
-      mainImage.src = src;
-      firstImageSet = true;
-    }
-
-    thumb.addEventListener("click", () => {
-      mainImage.src = thumb.dataset.large;
-      document
-        .querySelectorAll(".thumbnails img")
-        .forEach(t => t.classList.remove("active"));
-      thumb.classList.add("active");
-    });
-
-    thumbnails.appendChild(thumb);
-  };
-
-  testImg.onerror = () => {
-    // просто ничего не делаем — файла нет
-  };
-
-  testImg.src = src;
-}
-
-
-  // PREV/NEXT NAV
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
-
-  prevBtn.addEventListener("click", ()=>{
-    let currentIndex = products.findIndex(p=>p.id===PRODUCT_ID);
-    let prevIndex = (currentIndex-1+products.length)%products.length;
-    window.location.href = `card.html?id=${products[prevIndex].id}`;
-  });
-
-  nextBtn.addEventListener("click", ()=>{
-    let currentIndex = products.findIndex(p=>p.id===PRODUCT_ID);
-    let nextIndex = (currentIndex+1)%products.length;
-    window.location.href = `card.html?id=${products[nextIndex].id}`;
-  });
+  let first=true;
+  for(let i=1;i<=10;i++){
+    const src=`images/product${PRODUCT_ID}-${i}.png`;
+    const img=new Image();
+    img.onload=()=>{
+      const t=document.createElement("img");
+      t.src=src;
+      if(first){mainImage.src=src;t.classList.add("active");first=false;}
+      t.onclick=()=>{
+        mainImage.src=src;
+        document.querySelectorAll(".thumbnails img").forEach(x=>x.classList.remove("active"));
+        t.classList.add("active");
+      };
+      thumbs.appendChild(t);
+    };
+    img.src=src;
+  }
 
 });
 </script>
-
-
 </body>
 </html>
-
-
-
-
-
-
-
-
