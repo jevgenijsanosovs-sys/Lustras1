@@ -13,7 +13,9 @@
   <meta property="og:description"
         content="Explore a curated selection of rare handcrafted crystal chandeliers from a private exhibition collection.">
   <meta property="og:type" content="website">
-
+	
+  <script id="schema-collection" type="application/ld+json"></script>
+	
   <style>
     :root {
       --bg: #ffffff;
@@ -257,18 +259,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
   const DEV_PRODUCTS = [
-    {
-      id: "1",
-      title_en: "Crystal Chandelier No.1",
-      subtitle_en: "Exhibition Collection",
-      sale_price: "4800"
-    },
-    {
-      id: "2",
-      title_en: "Crystal Chandelier No.2",
-      subtitle_en: "Exhibition Collection",
-      sale_price: "5200"
-    }
+    { id: "1", title_en: "Crystal Chandelier No.1", subtitle_en: "Exhibition Collection", sale_price: "4800" },
+    { id: "2", title_en: "Crystal Chandelier No.2", subtitle_en: "Exhibition Collection", sale_price: "5200" }
   ];
 
   let products = [];
@@ -294,6 +286,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     products = DEV_PRODUCTS;
   }
 
+  /* ===== RENDER CATALOG ===== */
+
   const catalog = document.getElementById("catalog");
 
   products.forEach(p => {
@@ -305,13 +299,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       <div class="image-box">
         <img src="images/product${p.id}-1.png" alt="${p.title_en}">
       </div>
-
       <div class="text-box">
         <h2>${p.title_en}</h2>
         <div class="subtitle">${p.subtitle_en || ""}</div>
         <div class="price">
-          ${"" /* ${p.sale_price ? `<span class="sale-price">€${p.sale_price}</span>` : ""} */}
-		  ${p.sale_price ? `<span class="sale-price">${p.sale_price}</span>` : ""}
+          ${p.sale_price ? `<span class="sale-price">${p.sale_price}</span>` : ""}
         </div>
       </div>
     `;
@@ -319,11 +311,39 @@ document.addEventListener("DOMContentLoaded", async () => {
     catalog.appendChild(a);
   });
 
+  /* ===== COLLECTION SCHEMA ===== */
+
+  const items = products.map((p, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": p.title_en,
+    "url": `https://www.donbriz-lighting.com/card.html?id=${p.id}`
+  }));
+
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Donbriz Lighting — Private Collection",
+    "description": "Curated private collection of one-off lighting objects from a private exhibition archive.",
+    "url": "https://www.donbriz-lighting.com/",
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListOrder": "https://schema.org/ItemListUnordered",
+      "numberOfItems": items.length,
+      "itemListElement": items
+    }
+  };
+
+  document.getElementById("schema-collection").textContent =
+    JSON.stringify(collectionSchema);
+
 });
 </script>
 
+
 </body>
 </html>
+
 
 
 
