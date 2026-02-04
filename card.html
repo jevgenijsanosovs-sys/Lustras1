@@ -359,20 +359,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     img.src = src;
   }
 
-  /* ===== IMAGE NAVIGATION ===== */
-  let currentIndex = 0;
+/* ===== COLLECTION NAVIGATION ===== */
+const allIds = products.map(p => p.id);
+let currentIndex = allIds.indexOf(PRODUCT_ID);
 
-  function showImage(index) {
-    if (imageSources.length === 0) return;
-    if (index < 0) index = imageSources.length - 1;
-    if (index >= imageSources.length) index = 0;
-    currentIndex = index;
-    mainImage.src = imageSources[index];
-    // обновляем активный thumbnail
-    thumbs.querySelectorAll("img").forEach((img, idx) => {
-      img.classList.toggle("active", idx === index);
-    });
-  }
+document.getElementById("prevBtn").onclick = () => {
+  let prevIndex = currentIndex - 1;
+  if (prevIndex < 0) prevIndex = allIds.length - 1;
+  const prevId = allIds[prevIndex];
+  location.href = `card.html?id=${prevId}`;
+};
+
+document.getElementById("nextBtn").onclick = () => {
+  let nextIndex = currentIndex + 1;
+  if (nextIndex >= allIds.length) nextIndex = 0;
+  const nextId = allIds[nextIndex];
+  location.href = `card.html?id=${nextId}`;
+};
+
 
   document.getElementById("prevBtn").onclick = () => showImage(currentIndex - 1);
   document.getElementById("nextBtn").onclick = () => showImage(currentIndex + 1);
@@ -382,6 +386,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 </body>
 </html>
+
 
 
 
