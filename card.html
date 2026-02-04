@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const PRODUCT_ID = params.get("id");
   if (!PRODUCT_ID) { location.href = "index.html"; return; }
 
-  // ===== CSV LOAD =====
+  /* ===== LOAD PRODUCTS CSV ===== */
   const response = await fetch("products.csv");
   const csv = await response.text();
 
@@ -342,9 +342,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const viewer = document.getElementById("imageViewer");
   const viewerImg = document.getElementById("viewerImage");
 
-  mainImage.onclick = () => { viewerImg.src = mainImage.src; viewer.classList.remove("hidden"); };
-  viewer.onclick = () => viewer.classList.add("hidden");
-
   const imageSources = [];
   let firstLoaded = false;
 
@@ -355,19 +352,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       imageSources.push(src);
       const t = document.createElement("img");
       t.src = src;
-      t.onclick = () => {
-        currentIndex = imageSources.indexOf(src);
-        showImage(currentIndex);
-      };
+      t.onclick = () => showImage(imageSources.indexOf(src));
       thumbs.appendChild(t);
 
       if (!firstLoaded) {
-        currentIndex = 0;
-        showImage(currentIndex);
         firstLoaded = true;
+        showImage(0);
       }
     };
-    img.onerror = () => {}; // пропускаем отсутствующие изображения
+    img.onerror = () => {};
     img.src = src;
   }
 
@@ -375,19 +368,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (imageSources.length === 0) return;
     if (index < 0) index = imageSources.length - 1;
     if (index >= imageSources.length) index = 0;
-    currentIndex = index;
     mainImage.src = imageSources[index];
     thumbs.querySelectorAll("img").forEach((img, idx) => {
       img.classList.toggle("active", imageSources[idx] === imageSources[index]);
     });
   }
 
+  /* ===== VIEWER ===== */
+  mainImage.onclick = () => {
+    viewerImg.src = mainImage.src;
+    viewer.classList.remove("hidden");
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+  };
+  viewer.onclick = () => {
+    viewer.classList.add("hidden");
+    prevBtn.style.display = 'block';
+    nextBtn.style.display = 'block';
+  };
+
 });
 </script>
 
 
+
 </body>
 </html>
+
 
 
 
