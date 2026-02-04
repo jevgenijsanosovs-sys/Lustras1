@@ -246,32 +246,51 @@ document.addEventListener("DOMContentLoaded", async () => {
   const PRODUCT_ID = params.get("id");
   if (!PRODUCT_ID) { location.href = "index.html"; return; }
 
+  // ===== CSV LOAD =====
   const response = await fetch("products.csv");
   const csv = await response.text();
 
-  const lines = csv.split("\n").map(l=>l.trim()).filter(Boolean);
+  const lines = csv.split("\n").map(l => l.trim()).filter(Boolean);
   const headers = lines.shift().split(";");
-  const products = lines.map(line=>{
-    const values=line.split(";");
-    let o={}; headers.forEach((h,i)=>o[h]=values[i]); return o;
+  const products = lines.map(line => {
+    const values = line.split(";");
+    let o = {};
+    headers.forEach((h,i) => o[h] = values[i]);
+    return o;
   });
 
-  const product = products.find(p=>p.id===PRODUCT_ID);
-  if(!product) return;
+  const product = products.find(p => p.id === PRODUCT_ID);
+  if (!product) { location.href = "index.html"; return; }
 
-  /* ===== SEO ===== */
+  /* ===== COLLECTION NAVIGATION ===== */
+  const allIds = products.map(p => p.id);
+  let currentIndex = allIds.indexOf(PRODUCT_ID);
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  if (prevBtn && nextBtn) {
+    prevBtn.onclick = () => {
+      let prevIndex = currentIndex - 1;
+      if (prevIndex < 0) prevIndex = allIds.length - 1;
+      location.href = `card.html?id=${allIds[prevIndex]}`;
+    };
+    nextBtn.onclick = () => {
+      let nextIndex = currentIndex + 1;
+      if (nextIndex >= allIds.length) nextIndex = 0;
+      location.href = `card.html?id=${allIds[nextIndex]}`;
+    };
+  }
+
+  /* ===== SEO & SCHEMA ===== */
   document.title = product.seo_title_en;
   document.querySelector("meta[name='description']").content = product.seo_description_en;
   document.querySelector("meta[property='og:title']").content = product.seo_title_en;
   document.querySelector("meta[property='og:description']").content = product.seo_description_en;
   document.querySelector("meta[property='og:image']").content =
     `https://www.donbriz-lighting.com/images/product${PRODUCT_ID}-1.png`;
-
-  const canonical =
-    `https://www.donbriz-lighting.com/card.html?id=${PRODUCT_ID}`;
+  const canonical = `https://www.donbriz-lighting.com/card.html?id=${PRODUCT_ID}`;
   document.getElementById("canonical-link").href = canonical;
 
-  /* ===== SCHEMA.ORG ===== */
   const schema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -279,21 +298,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     "description": product.seo_description_en,
     "image": [`https://www.donbriz-lighting.com/images/product${PRODUCT_ID}-1.png`],
     "sku": product.id,
-    "manufacturer": {
-      "@type": "Organization",
-      "name": product.manufacturer
-    },    
+    "manufacturer": { "@type": "Organization", "name": product.manufacturer },
     "offers": {
       "@type": "Offer",
       "url": canonical,
       "priceCurrency": "EUR",
+      /* "price": product.sale_price, */
       "availability": "https://schema.org/InStock",
       "itemCondition": "https://schema.org/UsedCondition"
     }
   };
-  
-  document.getElementById("schema-product").textContent =
-    JSON.stringify(schema);
+  document.getElementById("schema-product").textContent = JSON.stringify(schema);
 
   const breadcrumb = {
     "@context": "https://schema.org",
@@ -303,8 +318,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       { "@type": "ListItem", "position": 2, "name": product.title_en, "item": canonical }
     ]
   };
-  document.getElementById("schema-breadcrumb").textContent =
-    JSON.stringify(breadcrumb);
+  document.getElementById("schema-breadcrumb").textContent = JSON.stringify(breadcrumb);
 
   /* ===== CONTENT ===== */
   document.getElementById("title").textContent = product.title_en;
@@ -328,64 +342,53 @@ document.addEventListener("DOMContentLoaded", async () => {
   const viewer = document.getElementById("imageViewer");
   const viewerImg = document.getElementById("viewerImage");
 
-  mainImage.onclick = () => {
-    viewerImg.src = mainImage.src;
-    viewer.classList.remove("hidden");
-  };
+  mainImage.onclick = () => { viewerImg.src = mainImage.src; viewer.classList.remove("hidden"); };
   viewer.onclick = () => viewer.classList.add("hidden");
 
   const imageSources = [];
   let firstLoaded = false;
 
-  // Загружаем миниатюры
   for (let i = 1; i <= 10; i++) {
     const src = `images/product${PRODUCT_ID}-${i}.png`;
     const img = new Image();
     img.onload = () => {
-      imageSources.push(src); // сохраняем все существующие изображения
+      imageSources.push(src);
       const t = document.createElement("img");
       t.src = src;
-      if (!firstLoaded) {
-        mainImage.src = src;
-        t.classList.add("active");
-        firstLoaded = true;
-      }
       t.onclick = () => {
         currentIndex = imageSources.indexOf(src);
         showImage(currentIndex);
       };
       thumbs.appendChild(t);
+
+      if (!firstLoaded) {
+        currentIndex = 0;
+        showImage(currentIndex);
+        firstLoaded = true;
+      }
     };
+    img.onerror = () => {}; // пропускаем отсутствующие изображения
     img.src = src;
   }
 
-/* ===== COLLECTION NAVIGATION ===== */
-const allIds = products.map(p => p.id);
-let currentIndex = allIds.indexOf(PRODUCT_ID);
-
-document.getElementById("prevBtn").onclick = () => {
-  let prevIndex = currentIndex - 1;
-  if (prevIndex < 0) prevIndex = allIds.length - 1;
-  const prevId = allIds[prevIndex];
-  location.href = `card.html?id=${prevId}`;
-};
-
-document.getElementById("nextBtn").onclick = () => {
-  let nextIndex = currentIndex + 1;
-  if (nextIndex >= allIds.length) nextIndex = 0;
-  const nextId = allIds[nextIndex];
-  location.href = `card.html?id=${nextId}`;
-};
-
-
-  document.getElementById("prevBtn").onclick = () => showImage(currentIndex - 1);
-  document.getElementById("nextBtn").onclick = () => showImage(currentIndex + 1);
+  function showImage(index) {
+    if (imageSources.length === 0) return;
+    if (index < 0) index = imageSources.length - 1;
+    if (index >= imageSources.length) index = 0;
+    currentIndex = index;
+    mainImage.src = imageSources[index];
+    thumbs.querySelectorAll("img").forEach((img, idx) => {
+      img.classList.toggle("active", imageSources[idx] === imageSources[index]);
+    });
+  }
 
 });
 </script>
 
+
 </body>
 </html>
+
 
 
 
